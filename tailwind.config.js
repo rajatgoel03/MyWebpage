@@ -2,7 +2,7 @@
 module.exports = {
   content: [
     // This tells Tailwind to look for class names in all HTML and JS files
-    // inside the 'public' directory.
+    // inside the 'public' directory and its subdirectories.
     './public/**/*.{html,js}',
   ],
   theme: {
@@ -11,7 +11,7 @@ module.exports = {
         maroon: {
           '50': '#fdf2f2',
           '100': '#fbe7e7',
-          '200': '#f8dədə',
+          '200': '#f8dada',
           '300': '#f2caca',
           '400': '#e9abab',
           '500': '#dd8787',
@@ -23,10 +23,12 @@ module.exports = {
         },
       },
       fontFamily: {
-        // This sets up 'Inter' as a custom font family, matching the original design.
+        // This sets up 'Inter' as a custom font family.
         sans: ['Inter', 'sans-serif'],
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }
