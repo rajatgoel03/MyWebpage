@@ -1,0 +1,19 @@
+{
+  "name": "research-profile-website",
+  "version": "1.0.0",
+  "description": "Personal research profile website for Rajat Goyal.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./public/style.css --minify"
+  },
+  "keywords": [
+    "research",
+    "portfolio",
+    "academic"
+  ],
+  "author": "Rajat Goyal",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}

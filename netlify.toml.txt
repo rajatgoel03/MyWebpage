@@ -1,0 +1,14 @@
+# This file configures the build and deployment settings for Netlify.
+
+[build]
+  # This command tells Netlify to run the "build" script defined in your package.json.
+  # It will process your source CSS and generate the final style.css file.
+  command = "npm run build"
+  
+  # This specifies the directory that contains the final, deployable files.
+  # Netlify will serve the content from this 'public' folder.
+  publish = "public"
+
+[build.environment]
+  # Sets the Node.js version to be used during the build process on Netlify.
+  NODE_VERSION = "18"
