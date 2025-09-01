@@ -42,7 +42,7 @@
         <!-- Home Section -->
         <section id="home" class="bg-gradient-to-br from-maroon-950 via-maroon-800 to-maroon-600 text-white min-h-screen flex items-center">
             <div class="container mx-auto px-6 text-center">
-                <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/Avatar.png" alt="Rajat Goyal" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-white shadow-lg" onerror="this.onerror=null;this.src='https://placehold.co/150x150/FFFFFF/333333?text=RG';">
+                <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/Avatar.png" alt="Rajat Goyal" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/150x150/FFFFFF/333333?text=RG';">
                 <h1 class="text-5xl font-bold mb-2">Rajat Goyal</h1>
                 <p class="text-xl mb-8">Assistant Professor (Operations) at UPES Dehradun</p>
                 <p class="max-w-3xl mx-auto text-maroon-100">
@@ -81,8 +81,12 @@
                         </ul>
                     </div>
                     <div class="md:w-1/3 grid grid-cols-1 gap-4">
-                        <img src="https://placehold.co/600x400/E2E8F0/4A5568?text=Research+Image+1" alt="Research Image 1" class="rounded-lg shadow-lg w-full h-auto object-cover">
-                        <img src="https://github.com/rajatgoel03/MyWebpage/raw/main/Class%2019-23.jpg" alt="Professional Image 2" class="rounded-lg shadow-lg w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/E2E8F0/4A5568?text=Image+Not+Found';">
+                        <div class="overflow-hidden rounded-lg shadow-lg">
+                           <img src="https://placehold.co/600x400/E2E8F0/4A5568?text=Research+Image+1" alt="Research Image 1" class="w-full h-auto object-cover transition-transform duration-300 ease-in-out hover:scale-110">
+                        </div>
+                        <div class="overflow-hidden rounded-lg shadow-lg">
+                           <img src="https://github.com/rajatgoel03/MyWebpage/raw/main/Class%2019-23.jpg" alt="Professional Image 2" class="w-full h-auto object-cover transition-transform duration-300 ease-in-out hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/600x400/E2E8F0/4A5568?text=Image+Not+Found';">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -165,8 +169,8 @@
                 <p class="text-center text-lg mb-8 max-w-3xl mx-auto">Thoughts and articles on Operations Management, Public Policy, and the intersection of technology and governance.</p>
                 <div class="grid md:grid-cols-3 gap-8">
                     <!-- Blog Post 1 -->
-                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden flex flex-col">
-                        <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/public/articles/Future%20of%20supplchain.jpg" alt="Future of Supply Chain Image" class="w-full h-40 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/A3BFFA/FFFFFF?text=Image+Not+Found';">
+                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden flex flex-col group">
+                        <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/public/articles/Future%20of%20supplchain.jpg" alt="Future of Supply Chain Image" class="w-full h-40 object-cover transition-transform duration-300 ease-in-out group-hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/600x400/A3BFFA/FFFFFF?text=Image+Not+Found';">
                         <div class="p-4 flex flex-col flex-grow">
                             <h3 class="font-bold text-lg mb-2">The Future of Supply Chains</h3>
                             <p class="text-sm text-gray-600 mb-3 flex-grow">A look at the emerging trends shaping the future of global supply chains in response to geopolitical and technological shifts.</p>
@@ -174,8 +178,8 @@
                         </div>
                     </div>
                     <!-- Blog Post 2 -->
-                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden flex flex-col">
-                        <img src="https://placehold.co/600x400/f8dada/703535?text=Blog+Post" alt="Blog post image" class="w-full h-40 object-cover">
+                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden flex flex-col group">
+                        <img src="https://placehold.co/600x400/f8dada/703535?text=Blog+Post" alt="Blog post image" class="w-full h-40 object-cover transition-transform duration-300 ease-in-out group-hover:scale-110">
                         <div class="p-4 flex flex-col flex-grow">
                             <h3 class="font-bold text-lg mb-2">Challenges in Implementing GenAI in Governance</h3>
                             <p class="text-sm text-gray-600 mb-3 flex-grow">A look at the practical hurdles and policy considerations for adopting Generative AI in public systems.</p>
@@ -183,8 +187,8 @@
                         </div>
                     </div>
                     <!-- Blog Post 3 -->
-                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden flex flex-col">
-                         <img src="https://placehold.co/600x400/f8dada/703535?text=Blog+Post" alt="Blog post image" class="w-full h-40 object-cover">
+                    <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden flex flex-col group">
+                         <img src="https://placehold.co/600x400/f8dada/703535?text=Blog+Post" alt="Blog post image" class="w-full h-40 object-cover transition-transform duration-300 ease-in-out group-hover:scale-110">
                         <div class="p-4 flex flex-col flex-grow">
                             <h3 class="font-bold text-lg mb-2">Optimizing Supply Chains for Social Good</h3>
                             <p class="text-sm text-gray-600 mb-3 flex-grow">How principles of supply chain management can be applied to solve societal challenges.</p>
@@ -227,3 +231,4 @@
 
 </body>
 </html>
+
