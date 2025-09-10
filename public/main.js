@@ -1,31 +1,45 @@
-// --- Mobile Menu Handler ---
-// This function handles the toggling of the mobile navigation menu.
+// --- Mobile Menu Toggle ---
 const mobileMenuButton = document.getElementById('mobile-menu-button');
 const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
 
-// It's good practice to check if the elements exist before adding event listeners.
+// Toggle menu on button click
 if (mobileMenuButton && mobileMenu) {
-  mobileMenuButton.addEventListener('click', () => {
-    // Toggles the 'hidden' class from Tailwind CSS to show/hide the menu.
-    mobileMenu.classList.toggle('hidden');
-  });
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
 }
 
-// --- Email Obfuscation/Masking ---
-// This script protects the email address from spam bots by constructing
-// the mailto: link dynamically when a user clicks it.
+// Close menu on link click
+mobileMenuLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (mobileMenu) {
+            mobileMenu.classList.add('hidden');
+        }
+    });
+});
+
+
+// --- Email Masking ---
 const emailLink = document.getElementById('email-link');
-
 if (emailLink) {
-  emailLink.addEventListener('click', (event) => {
-    // Prevent the default anchor tag behavior.
-    event.preventDefault();
-
-    // Define the parts of the email address.
-    const user = 'rajat.goyal';
-    const domain = 'ddn.upes.ac.in';
-
-    // Construct the full mailto: link and navigate to it.
-    window.location.href = 'mailto:' + user + '@' + domain;
-  });
+    emailLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const user = 'rajat.goyal';
+        const domain = 'ddn.upes.ac.in';
+        window.location.href = `mailto:${user}@${domain}`;
+    });
 }
+
+
+// --- Initialize AOS (Animate On Scroll) Library ---
+// This should be called after the AOS library script is loaded in the HTML
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof AOS !== 'undefined') {
+    AOS.init({
+        duration: 800, // values from 0 to 3000, with step 50ms
+        once: true,    // whether animation should happen only once - while scrolling down
+    });
+  }
+});
+
