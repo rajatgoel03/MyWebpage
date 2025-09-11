@@ -23,36 +23,41 @@
         .text-shadow-sm {
             text-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
+        /* Style for the header on scroll */
+        .header-scrolled {
+            background-color: rgba(75, 29, 29, 0.8);
+            backdrop-filter: blur(10px);
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans">
 
     <!-- Header & Navigation -->
-    <header class="bg-maroon-800 text-white shadow-lg sticky top-0 z-50">
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-white">Rajat Goyal</a>
             <div class="hidden md:flex space-x-8">
-                <a href="#home" class="text-slate-200 hover:text-white hover:font-bold transition duration-300">Home</a>
-                <a href="#profile" class="text-slate-200 hover:text-white hover:font-bold transition duration-300">Profile</a>
-                <a href="#research" class="text-slate-200 hover:text-white hover:font-bold transition duration-300">Research</a>
-                <a href="#teaching" class="text-slate-200 hover:text-white hover:font-bold transition duration-300">Teaching</a>
-                <a href="#certifications" class="text-slate-200 hover:text-white hover:font-bold transition duration-300">Certifications</a>
-                <a href="#blog" class="text-slate-200 hover:text-white hover:font-bold transition duration-300">Blog</a>
-                <a href="#contact" class="text-slate-200 hover:text-white hover:font-bold transition duration-300">Contact</a>
+                <a href="#home" class="text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Home</a>
+                <a href="#profile" class="text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Profile</a>
+                <a href="#research" class="text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Research</a>
+                <a href="#teaching" class="text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Teaching</a>
+                <a href="#certifications" class="text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Certifications</a>
+                <a href="#blog" class="text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Blog</a>
+                <a href="#contact" class="text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Contact</a>
             </div>
             <button id="mobile-menu-button" class="md:hidden flex items-center text-white">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-maroon-700">
-            <a href="#home" class="block py-2 px-4 text-sm text-slate-200 hover:bg-maroon-600">Home</a>
-            <a href="#profile" class="block py-2 px-4 text-sm text-slate-200 hover:bg-maroon-600">Profile</a>
-            <a href="#research" class="block py-2 px-4 text-sm text-slate-200 hover:bg-maroon-600">Research</a>
-            <a href="#teaching" class="block py-2 px-4 text-sm text-slate-200 hover:bg-maroon-600">Teaching</a>
-            <a href="#certifications" class="block py-2 px-4 text-sm text-slate-200 hover:bg-maroon-600">Certifications</a>
-            <a href="#blog" class="block py-2 px-4 text-sm text-slate-200 hover:bg-maroon-600">Blog</a>
-            <a href="#contact" class="block py-2 px-4 text-sm text-slate-200 hover:bg-maroon-600">Contact</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-maroon-800">
+            <a href="#home" class="block py-2 px-4 text-sm text-slate-200 hover:bg-maroon-700">Home</a>
+            <a href="#profile" class="block py-2 px-4 text-sm text-slate-200 hover:bg-maroon-700">Profile</a>
+            <a href="#research" class="block py-2 px-4 text-sm text-slate-200 hover:bg-maroon-700">Research</a>
+            <a href="#teaching" class="block py-2 px-4 text-sm text-slate-200 hover:bg-maroon-700">Teaching</a>
+            <a href="#certifications" class="block py-2 px-4 text-sm text-slate-200 hover:bg-maroon-700">Certifications</a>
+            <a href="#blog" class="block py-2 px-4 text-sm text-slate-200 hover:bg-maroon-700">Blog</a>
+            <a href="#contact" class="block py-2 px-4 text-sm text-slate-200 hover:bg-maroon-700">Contact</a>
         </div>
     </header>
 
@@ -440,9 +445,23 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-maroon-950 text-white py-6">
-        <div class="container mx-auto px-6 text-center">
-            <p class="text-slate-400">&copy; 2025 Rajat Goyal. All Rights Reserved.</p>
+    <footer class="bg-slate-900 text-white">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-lg font-bold">Rajat Goyal</h3>
+                    <p class="text-slate-400">Operations Management & Supply Chain Researcher</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#profile" class="text-slate-300 hover:text-white transition duration-300">Profile</a>
+                    <a href="#research" class="text-slate-300 hover:text-white transition duration-300">Research</a>
+                    <a href="#blog" class="text-slate-300 hover:text-white transition duration-300">Blog</a>
+                    <a href="#contact" class="text-slate-300 hover:text-white transition duration-300">Contact</a>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-slate-700 pt-6 text-center text-slate-500">
+                <p>&copy; 2025 Rajat Goyal. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
 
