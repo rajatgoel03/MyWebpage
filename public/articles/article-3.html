@@ -1,66 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Role of IT in Mitigating the Bullwhip Effect</title>
-    <link href="../style.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Favicon -->
     <link rel="icon" href="../Images/favicon.svg" type="image/svg+xml">
+    <style>
+        /* Custom Tailwind Configuration (for custom colors) */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        maroon: {
+                            '50': '#fef2f2', '100': '#fee2e2', '200': '#fecaca', '300': '#fca5a5', '400': '#f87171', '500': '#ef4444', '600': '#dc2626', '700': '#b91c1c', '800': '#991b1b', '900': '#7f1d1d', '950': '#450a0a'
+                        },
+                        gold: {
+                            '400': '#c08432'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+
+        /* Style for the header on scroll */
+        .header-scrolled {
+            background-color: rgba(69, 10, 10, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        /* Prevent scroll when mobile menu is open */
+        .no-scroll {
+            overflow: hidden;
+        }
+        /* Subtle Textured Background */
+        .section-bg-textured {
+            background-color: #f8fafc; /* slate-50, a fallback color */
+            background-image:
+                radial-gradient(at 0% 0%, hsla(240, 10%, 50%, 0.03) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(240, 10%, 50%, 0.05) 0px, transparent 50%);
+        }
+        /* Custom styles for article typography */
+        .article-content p, .article-content li {
+            font-size: 1.125rem; /* Equivalent to text-lg */
+            line-height: 1.75; /* Equivalent to leading-relaxed */
+            text-align: justify;
+            margin-bottom: 1.25rem;
+        }
+        .article-content h2 {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700;
+            color: #991b1b; /* maroon-800 */
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .article-content ul {
+            list-style-type: disc;
+            list-style-position: inside;
+            padding-left: 1rem;
+        }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans">
-    <header class="bg-maroon-800 text-white shadow-lg sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+
+    <!-- Header & Navigation -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-maroon-950/80 backdrop-blur-sm">
+        <nav class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
             <a href="../index.html" class="text-2xl font-bold text-white">Rajat Goyal</a>
             <div class="hidden md:flex space-x-8">
-                <a href="../index.html#home" class="text-slate-200 hover:text-white hover:font-bold transition duration-300">Home</a>
-                <a href="../index.html#profile" class="text-slate-200 hover:text-white hover:font-bold transition duration-300">Profile</a>
-                <a href="../index.html#research" class="text-slate-200 hover:text-white hover:font-bold transition duration-300">Research</a>
-                <a href="../index.html#teaching" class="text-slate-200 hover:text-white hover:font-bold transition duration-300">Teaching</a>
-                <a href="../index.html#certifications" class="text-slate-200 hover:text-white hover:font-bold transition duration-300">Certifications</a>
-                <a href="../index.html#blog" class="text-slate-200 hover:text-white hover:font-bold transition duration-300">Blog</a>
-                <a href="../index.html#contact" class="text-slate-200 hover:text-white hover:font-bold transition duration-300">Contact</a>
+                <a href="../index.html#home" class="text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Home</a>
+                <a href="../index.html#profile" class="text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Profile</a>
+                <a href="../index.html#research" class="text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Research</a>
+                <a href="../index.html#teaching" class="text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Teaching</a>
+                <a href="../index.html#certifications" class="text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Certifications</a>
+                <a href="../index.html#blog" class="text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Blog</a>
+                <a href="../index.html#contact" class="text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Contact</a>
             </div>
+             <button id="mobile-menu-button" class="md:hidden flex items-center text-white z-50">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
         </nav>
     </header>
-    <main class="container mx-auto px-6 py-12 max-w-4xl">
-        <article class="prose lg:prose-xl max-w-none">
-            <div class="text-center mb-10">
-                <h1 class="inline-block text-4xl font-bold text-slate-800 relative pb-4">
-                    Role of Information Technology to Mitigate the Bullwhip Effect
-                    <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-maroon-600 to-gold-400 rounded-full"></span>
-                </h1>
-            </div>
-             <div class="overflow-hidden rounded-lg shadow-lg mb-8">
-                <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/public/articles/it.jpg" alt="IT in Supply Chain" class="w-full h-auto object-cover transition-transform duration-300 ease-in-out hover:scale-105">
-            </div>
-            <p>When distorted information is transmitted up the supply chain, at some point the cost from those fluctuations in production/ordering can outweigh the cost of holding inventory, resulting in a major revenue drain for businesses. The bullwhip effect is challenging to discover, and even more complex to mitigate. New IT technologies such as Cloud computing and the Blockchain have recently emerged as strong contenders for this task.</p>
-            
-            <h2>Bullwhip Effect with Cloud Computing</h2>
-            <p>Cloud computing helps in connecting and digitizing more links within your supply chain – supplied with real-time data, better connectivity, and improved data sharing tools for all supply chain participants. It is the first necessary step to improve supply chain visibility and velocity. Implementing a cloud-based platform can help businesses better coordinate all the chain’s participants and gather more accurate data from them for demand forecasting. Levels for Cloud Computing are-</p>
-            <ul>
-                <li><strong>Level 1: Transaction Integration</strong> - This step involves automating common business processes and transactions such as Purchase orders, work orders, sales orders, Invoices, Credit and debit notes, Payments using cloud platforms, and tools.</li>
-                <li><strong>Level 2: Supply chain management information sharing</strong> - Digitized supply chain gives all entities access to better information for the decision about Production, forecasts, BOMs, prices, orders, inventory, etc.</li>
-                <li><strong>Level 3: Strategic collaboration</strong> - Once the system is up and running smoothly all the participants can make collaborative decisions on: Enhancing strategic supply chain relationships and profitability, Upgrading forecast accuracy, Levelling up sales and operations planning, Resolving critical supply chain events at a faster pace, Creating unified pricing plans, Accelerating and managing demand plans, direct material procurement, Improving production capacities and working out an effective fulfillment network expansion.</li>
-            </ul>
 
-            <h2>Bullwhip Effect with Blockchain</h2>
-            <p>Blockchain can be used to tackle information asymmetry on a wider scale. As a secure digital ledger, the blockchain component can act as a single, unified source of data and enable real-time access to all the records, as well as seamless and automated updates. When insights such as Inventory levels, work in progress levels, order data, demand data are available, all entities can base their forecasts on the same data, thus reducing bullwhip effect. Ultimately, blockchain technology has several major advantages when it comes to improving supply chain management:</p>
-            <ul>
-                <li>It enables faster transactions.</li>
-                <li>It provides unified access to multiple sources of information to different decision makers.</li>
-                <li>It enhances collaboration among the supply chain participants through tokenization.</li>
-                <li>Finally, blockchain allows selective information aggregation.</li>
-            </ul>
-            <p>All these features together position blockchain as a powerful solution to reducing the bullwhip effect, enabling higher visibility and greater collaboration in supply chain management.</p>
-        </article>
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-maroon-900/95 z-40 flex flex-col items-center justify-center space-y-6 text-2xl">
+        <a href="../index.html#home" class="mobile-link text-slate-200 hover:text-white">Home</a>
+        <a href="../index.html#profile" class="mobile-link text-slate-200 hover:text-white">Profile</a>
+        <a href="../index.html#research" class="mobile-link text-slate-200 hover:text-white">Research</a>
+        <a href="../index.html#teaching" class="mobile-link text-slate-200 hover:text-white">Teaching</a>
+        <a href="../index.html#certifications" class="mobile-link text-slate-200 hover:text-white">Certifications</a>
+        <a href="../index.html#blog" class="mobile-link text-slate-200 hover:text-white">Blog</a>
+        <a href="../index.html#contact" class="mobile-link text-slate-200 hover:text-white">Contact</a>
+    </div>
+
+    <main>
+        <section class="section-bg-textured pt-32 pb-12">
+            <div class="container mx-auto px-4 sm:px-6 max-w-4xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h1 class="inline-block text-3xl sm:text-4xl font-bold text-slate-800 relative pb-4">
+                        Role of Information Technology to Mitigate the Bullwhip Effect
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-maroon-600 to-gold-400 rounded-full"></span>
+                    </h1>
+                </div>
+                 <article class="article-content bg-white p-8 sm:p-12 rounded-lg shadow-xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="overflow-hidden rounded-lg shadow-lg mb-8">
+                        <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/public/articles/it.jpg" alt="IT in Supply Chain" class="w-full h-auto object-cover">
+                    </div>
+                    <p>When distorted information is transmitted up the supply chain, at some point the cost from those fluctuations in production/ordering can outweigh the cost of holding inventory, resulting in a major revenue drain for businesses. The bullwhip effect is challenging to discover, and even more complex to mitigate. New IT technologies such as Cloud computing and the Blockchain have recently emerged as strong contenders for this task.</p>
+                    
+                    <h2>Bullwhip Effect with Cloud Computing</h2>
+                    <p>Cloud computing helps in connecting and digitizing more links within your supply chain – supplied with real-time data, better connectivity, and improved data sharing tools for all supply chain participants. It is the first necessary step to improve supply chain visibility and velocity. Implementing a cloud-based platform can help businesses better coordinate all the chain’s participants and gather more accurate data from them for demand forecasting. Levels for Cloud Computing are-</p>
+                    <ul>
+                        <li><strong>Level 1: Transaction Integration</strong> - This step involves automating common business processes and transactions such as Purchase orders, work orders, sales orders, Invoices, Credit and debit notes, Payments using cloud platforms, and tools.</li>
+                        <li><strong>Level 2: Supply chain management information sharing</strong> - Digitized supply chain gives all entities access to better information for the decision about Production, forecasts, BOMs, prices, orders, inventory, etc.</li>
+                        <li><strong>Level 3: Strategic collaboration</strong> - Once the system is up and running smoothly all the participants can make collaborative decisions on: Enhancing strategic supply chain relationships and profitability, Upgrading forecast accuracy, Levelling up sales and operations planning, Resolving critical supply chain events at a faster pace, Creating unified pricing plans, Accelerating and managing demand plans, direct material procurement, Improving production capacities and working out an effective fulfillment network expansion.</li>
+                    </ul>
+
+                    <h2>Bullwhip Effect with Blockchain</h2>
+                    <p>Blockchain can be used to tackle information asymmetry on a wider scale. As a secure digital ledger, the blockchain component can act as a single, unified source of data and enable real-time access to all the records, as well as seamless and automated updates. When insights such as Inventory levels, work in progress levels, order data, demand data are available, all entities can base their forecasts on the same data, thus reducing bullwhip effect. Ultimately, blockchain technology has several major advantages when it comes to improving supply chain management:</p>
+                    <ul>
+                        <li>It enables faster transactions.</li>
+                        <li>It provides unified access to multiple sources of information to different decision makers.</li>
+                        <li>It enhances collaboration among the supply chain participants through tokenization.</li>
+                        <li>Finally, blockchain allows selective information aggregation.</li>
+                    </ul>
+                    <p>All these features together position blockchain as a powerful solution to reducing the bullwhip effect, enabling higher visibility and greater collaboration in supply chain management.</p>
+                </article>
+            </div>
+        </section>
     </main>
-    <footer class="bg-maroon-950 text-white py-6 mt-12">
-        <div class="container mx-auto px-6 text-center">
-            <p class="text-slate-400">&copy; 2025 Rajat Goyal. All Rights Reserved.</p>
+
+    <!-- Footer -->
+    <footer class="bg-maroon-950 text-white">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-lg font-bold">Rajat Goyal</h3>
+                    <p class="text-slate-400">Operations Management & Supply Chain Researcher</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="../index.html#profile" class="text-slate-300 hover:text-white transition duration-300">Profile</a>
+                    <a href="../index.html#research" class="text-slate-300 hover:text-white transition duration-300">Research</a>
+                    <a href="../index.html#blog" class="text-slate-300 hover:text-white transition duration-300">Blog</a>
+                    <a href="../index.html#contact" class="text-slate-300 hover:text-white transition duration-300">Contact</a>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-slate-700 pt-6 text-center text-slate-500">
+                <p>&copy; 2025 Rajat Goyal. All Rights Reserved.</p>
+            </div>
         </div>
     </footer>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../main.js"></script>
 </body>
 </html>
-
