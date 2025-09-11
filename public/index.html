@@ -4,33 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rajat Goyal - Profile</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Link to the generated stylesheet -->
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Favicon -->
     <link rel="icon" href="/Images/favicon.svg" type="image/svg+xml">
     <style>
-        /* Custom Tailwind Configuration (for custom colors) */
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        maroon: {
-                            '50': '#fef2f2', '100': '#fee2e2', '200': '#fecaca', '300': '#fca5a5', '400': '#f87171', '500': '#ef4444', '600': '#dc2626', '700': '#b91c1c', '800': '#991b1b', '900': '#7f1d1d', '950': '#450a0a'
-                        },
-                        gold: {
-                            '400': '#c08432'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                }
-            }
-        }
-
         /* Custom style for the modern background effect */
         .hero-bg {
             background-color: #4b1d1d; /* maroon-950 */
@@ -44,7 +25,7 @@
         }
         /* Style for the header on scroll */
         .header-scrolled {
-            background-color: rgba(69, 10, 10, 0.85);
+            background-color: rgba(75, 29, 29, 0.9);
             backdrop-filter: blur(10px);
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
@@ -61,37 +42,6 @@
         }
         .section-bg-alt {
             background-color: #ffffff;
-        }
-
-        /* --- NEW MODERN STYLES --- */
-
-        /* 1. Subtle Textured Background */
-        .section-bg-textured {
-            background-color: #f8fafc; /* slate-50, a fallback color */
-            background-image:
-                radial-gradient(at 0% 0%, hsla(240, 10%, 50%, 0.03) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, hsla(240, 10%, 50%, 0.05) 0px, transparent 50%);
-        }
-
-        /* 2. Glassmorphism Heading Card */
-        .glass-heading-card {
-            background: rgba(255, 255, 255, 0.4);
-            -webkit-backdrop-filter: blur(12px);
-            backdrop-filter: blur(12px);
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 1.5rem 2rem;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            display: inline-block;
-        }
-
-        /* 3. Gradient Text */
-        .text-gradient {
-            background: linear-gradient(90deg, #7f1d1d, #c08432); /* maroon-900 to gold-400 */
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 800; /* Extra bold for impact */
         }
     </style>
 </head>
@@ -145,23 +95,22 @@
         <!-- Profile Section -->
         <section id="profile" class="py-12 section-bg">
             <div class="container mx-auto px-4 sm:px-6">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <div class="glass-heading-card">
-                        <h2 class="text-3xl sm:text-4xl text-gradient">
-                            Profile Summary
-                        </h2>
-                    </div>
+                 <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="inline-block text-3xl sm:text-4xl font-bold text-slate-800 relative pb-4">
+                        Profile Summary
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-maroon-600 to-gold-400 rounded-full"></span>
+                    </h2>
                 </div>
                 <div class="flex flex-col lg:flex-row items-start gap-12">
                     <div class="lg:w-3/5" data-aos="fade-right" data-aos-delay="200">
-                        <h3 class="text-2xl font-semibold text-maroon-800 mb-4">About Me</h3>
+                        <h3 class="text-2xl font-semibold text-slate-700 mb-4">About Me</h3>
                         <p class="mb-4 text-slate-600">
                             I am an Assistant Professor in Operations at UPES Dehradun with a deep interest in Operations Management and Operations Research. My doctoral research at IIT Delhi focused on developing a Decision Support System (DSS) to strengthen district administration in India. This work involved creating data-driven tools to improve efficiency in meeting management, compliance tracking, and law and order.
                         </p>
                         <p class="text-slate-600">
                             My goal is to contribute to impactful governance reforms that align with the national vision of Viksit Bharat 2047 through technological innovation and robust policy support.
                         </p>
-                        <h3 class="text-2xl font-semibold text-maroon-800 mt-8 mb-6">Education</h3>
+                        <h3 class="text-2xl font-semibold text-slate-700 mt-8 mb-6">Education</h3>
                         <div class="relative border-l-4 border-maroon-200">
                             <!-- Timeline Item 1: PhD -->
                             <div class="mb-10 ml-6 transition duration-300 ease-in-out hover:scale-105">
@@ -237,17 +186,16 @@
         </section>
 
         <!-- Research Section -->
-        <section id="research" class="py-12 section-bg-textured">
+        <section id="research" class="py-12 section-bg-alt">
             <div class="container mx-auto px-4 sm:px-6">
                 <div class="text-center mb-12" data-aos="fade-up">
-                    <div class="glass-heading-card">
-                        <h2 class="text-3xl sm:text-4xl text-gradient">
-                            Research
-                        </h2>
-                    </div>
+                    <h2 class="inline-block text-3xl sm:text-4xl font-bold text-slate-800 relative pb-4">
+                        Research
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-maroon-600 to-gold-400 rounded-full"></span>
+                    </h2>
                 </div>
                 <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="text-2xl font-semibold text-maroon-800 mb-4">Areas of Interest</h3>
+                    <h3 class="text-2xl font-semibold text-slate-700 mb-4">Areas of Interest</h3>
                     <div class="flex flex-wrap gap-4 mb-8">
                         <span class="bg-maroon-100 text-maroon-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Operations Management</span>
                         <span class="bg-maroon-100 text-maroon-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Operations Research</span>
@@ -255,7 +203,7 @@
                         <span class="bg-maroon-100 text-maroon-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Public System Modelling</span>
                     </div>
                     
-                    <h3 class="text-2xl font-semibold text-maroon-800 mb-4 mt-8">Researcher Profiles</h3>
+                    <h3 class="text-2xl font-semibold text-slate-700 mb-4 mt-8">Researcher Profiles</h3>
                      <div class="flex items-center gap-8">
                         <!-- Google Scholar -->
                         <a href="https://scholar.google.com/citations?user=qa3dVBQAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" title="Google Scholar" class="transition-transform duration-300 ease-in-out hover:scale-110">
@@ -275,7 +223,8 @@
                         </a>
                     </div>
 
-                    <h3 class="text-2xl font-semibold text-maroon-800 mb-4 mt-12">Publications</h3>
+
+                    <h3 class="text-2xl font-semibold text-slate-700 mb-4 mt-12">Publications</h3>
                     <div class="space-y-6 mb-8">
                         <div class="p-6 bg-slate-50 rounded-lg shadow-md transition duration-300 hover:shadow-lg hover:-translate-y-1">
                             <h4 class="font-bold text-lg text-slate-800">
@@ -298,7 +247,7 @@
                         </div>
                     </div>
                     
-                    <h3 class="text-2xl font-semibold text-maroon-800 mb-4">Conference Presentations</h3>
+                    <h3 class="text-2xl font-semibold text-slate-700 mb-4">Conference Presentations</h3>
                      <div class="space-y-6">
                         <div class="p-6 bg-slate-50 rounded-lg shadow-md transition duration-300 hover:shadow-lg hover:-translate-y-1">
                             <h4 class="font-bold text-lg text-slate-800">
@@ -323,17 +272,16 @@
         <section id="teaching" class="py-12 section-bg">
             <div class="container mx-auto px-4 sm:px-6">
                 <div class="text-center mb-12" data-aos="fade-up">
-                    <div class="glass-heading-card">
-                        <h2 class="text-3xl sm:text-4xl text-gradient">
-                            Teaching
-                        </h2>
-                    </div>
+                    <h2 class="inline-block text-3xl sm:text-4xl font-bold text-slate-800 relative pb-4">
+                        Teaching
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-maroon-600 to-gold-400 rounded-full"></span>
+                    </h2>
                 </div>
                 <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
                     <p class="text-center text-lg text-slate-600 mb-8">I am passionate about mentoring students and fostering a deep understanding of operations and supply chain principles. Below is a summary of my teaching experience.</p>
                     
                     <div class="bg-white p-8 rounded-lg shadow-xl mb-8">
-                        <h3 class="text-2xl font-semibold text-maroon-800 mb-6 border-b pb-4">Courses Taught at UPES Dehradun</h3>
+                        <h3 class="text-2xl font-semibold text-slate-700 mb-6 border-b pb-4">Courses Taught at UPES Dehradun</h3>
                         <div class="grid md:grid-cols-2 gap-6">
                             <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1">
                                 <h4 class="font-bold text-slate-800">Operations Management</h4>
@@ -355,7 +303,7 @@
                     </div>
 
                     <div class="bg-white p-8 rounded-lg shadow-xl">
-                        <h3 class="text-2xl font-semibold text-maroon-800 mb-6 border-b pb-4">Teaching Assistantship at IIT Delhi</h3>
+                        <h3 class="text-2xl font-semibold text-slate-700 mb-6 border-b pb-4">Teaching Assistantship at IIT Delhi</h3>
                         <div class="grid md:grid-cols-2 gap-6">
                             <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1">
                                 <h4 class="font-bold text-slate-800">Supply Chain Management (MCL756)</h4>
@@ -372,21 +320,20 @@
         </section>
 
         <!-- Certifications and FDPs Section -->
-        <section id="certifications" class="py-12 section-bg-textured">
+        <section id="certifications" class="py-12 section-bg-alt">
             <div class="container mx-auto px-4 sm:px-6">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <div class="glass-heading-card">
-                        <h2 class="text-3xl sm:text-4xl text-gradient">
-                            Certifications & FDPs
-                        </h2>
-                    </div>
+                 <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 class="inline-block text-3xl sm:text-4xl font-bold text-slate-800 relative pb-4">
+                        Certifications & FDPs
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-maroon-600 to-gold-400 rounded-full"></span>
+                    </h2>
                 </div>
                 <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
                     
                     <div class="space-y-8">
                         <!-- Global Certifications -->
                         <div class="bg-white p-6 rounded-lg shadow-xl">
-                             <h3 class="text-2xl font-semibold text-maroon-800 mb-6 border-b pb-4">Global Certifications</h3>
+                             <h3 class="text-2xl font-semibold text-slate-700 mb-6 border-b pb-4">Global Certifications</h3>
                              <div class="grid md:grid-cols-2 gap-6">
                                 <div class="bg-slate-50 p-4 rounded-lg flex items-start space-x-4 transition duration-300 hover:shadow-xl hover:-translate-y-1">
                                     <span class="text-maroon-700 mt-1">&#10003;</span>
@@ -407,7 +354,7 @@
 
                         <!-- Workshops and Symposiums -->
                         <div class="bg-white p-6 rounded-lg shadow-xl">
-                            <h3 class="text-2xl font-semibold text-maroon-800 mb-6 border-b pb-4">Workshops & FDPs</h3>
+                            <h3 class="text-2xl font-semibold text-slate-700 mb-6 border-b pb-4">Workshops & FDPs</h3>
                             <div class="grid md:grid-cols-2 gap-6">
                                <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1">
                                     <h4 class="font-bold text-slate-800">AI for Teaching and Learning</h4>
@@ -437,11 +384,10 @@
         <section id="blog" class="py-12 section-bg">
             <div class="container mx-auto px-4 sm:px-6">
                 <div class="text-center mb-12" data-aos="fade-up">
-                    <div class="glass-heading-card">
-                        <h2 class="text-3xl sm:text-4xl text-gradient">
-                            Blog
-                        </h2>
-                    </div>
+                    <h2 class="inline-block text-3xl sm:text-4xl font-bold text-slate-800 relative pb-4">
+                        Blog
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-maroon-600 to-gold-400 rounded-full"></span>
+                    </h2>
                 </div>
                 <p class="text-center text-lg text-slate-600 mb-8 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">Thoughts and articles on Operations Management, Supply Chain Management, Public Policy, and the intersection of technology and governance.</p>
                 <div class="grid md:grid-cols-3 gap-8">
@@ -486,11 +432,10 @@
         <section id="contact" class="py-12 section-bg">
             <div class="container mx-auto px-4 sm:px-6">
                 <div class="text-center mb-12" data-aos="fade-up">
-                    <div class="glass-heading-card">
-                        <h2 class="text-3xl sm:text-4xl text-gradient">
-                            Get In Touch
-                        </h2>
-                    </div>
+                    <h2 class="inline-block text-3xl sm:text-4xl font-bold text-slate-800 relative pb-4">
+                        Get In Touch
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-maroon-600 to-gold-400 rounded-full"></span>
+                    </h2>
                 </div>
                 <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-xl text-center" data-aos="fade-up" data-aos-delay="200">
                     <p class="text-lg mb-2 text-slate-700">Rajat Goyal</p>
