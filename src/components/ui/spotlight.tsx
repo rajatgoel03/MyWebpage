@@ -4,9 +4,12 @@ import { cn } from '@/lib/utils'
 type SpotlightProps = {
   className?: string
   fill?: string
+  /** Unique id suffix so multiple Spotlight instances on the same page get distinct SVG filter IDs */
+  uid?: string
 }
 
-export const Spotlight = ({ className, fill }: SpotlightProps) => {
+export const Spotlight = ({ className, fill, uid = 'default' }: SpotlightProps) => {
+  const filterId = `spotlight-filter-${uid}`
   return (
     <svg
       className={cn(
@@ -17,7 +20,7 @@ export const Spotlight = ({ className, fill }: SpotlightProps) => {
       viewBox="0 0 3787 2842"
       fill="none"
     >
-      <g filter="url(#filter)">
+      <g filter={`url(#${filterId})`}>
         <ellipse
           cx="1924.71"
           cy="273.501"
@@ -30,7 +33,7 @@ export const Spotlight = ({ className, fill }: SpotlightProps) => {
       </g>
       <defs>
         <filter
-          id="filter"
+          id={filterId}
           x="0.860352"
           y="0.838989"
           width="3785.16"

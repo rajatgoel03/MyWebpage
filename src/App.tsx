@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { SplineSceneBasic } from '@/components/ui/demo'
+import { HeroDemo } from '@/components/ui/demo'
 import {
   Mail,
   Link,
@@ -13,7 +13,6 @@ import {
   Phone,
   Menu,
   X,
-  ChevronDown,
   ExternalLink,
 } from 'lucide-react'
 
@@ -142,114 +141,6 @@ function Header() {
   )
 }
 
-/* ─── Hero Section ────────────────────────── */
-
-function HeroSection() {
-  return (
-    <section
-      id="home"
-      className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
-      style={{
-        backgroundColor: '#4b1d1d',
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a84747' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-2-26V0h-2v8h-4v2h4v4h2v-4h4V8h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-      }}
-    >
-      <div className="absolute inset-0 bg-black opacity-20" />
-
-      {/* Text content */}
-      <div className="container mx-auto px-4 sm:px-6 text-center relative z-10 pt-24 pb-8">
-        <motion.img
-          src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/Avatar.png"
-          alt="Rajat Goyal"
-          className="w-36 h-36 rounded-full mx-auto mb-6 border-4 border-white shadow-xl ring-4 ring-maroon-500/50 object-cover"
-          onError={(e) => {
-            ;(e.target as HTMLImageElement).src =
-              'https://placehold.co/150x150/FFFFFF/333333?text=RG'
-          }}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-        />
-        <motion.h1
-          className="text-4xl sm:text-5xl font-bold text-white mb-2"
-          style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          Rajat Goyal
-        </motion.h1>
-        <motion.p
-          className="text-lg sm:text-xl text-slate-100 mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          Assistant Professor (Operations) at UPES Dehradun
-        </motion.p>
-        <motion.p
-          className="max-w-3xl mx-auto text-slate-200 text-base sm:text-lg"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
-          Passionate about leveraging data-driven insights and advanced modeling to optimize public
-          systems and solve complex administrative challenges. My research focuses on public
-          administration, creating innovative decision support systems to enhance governance and
-          efficiency, operations management, and supply chain management.
-        </motion.p>
-
-        <motion.div
-          className="flex justify-center gap-4 mt-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <a
-            href="#profile"
-            onClick={(e) => {
-              e.preventDefault()
-              document.getElementById('profile')?.scrollIntoView({ behavior: 'smooth' })
-            }}
-            className="bg-white text-maroon-800 font-semibold px-6 py-3 rounded-full hover:bg-maroon-50 transition-colors shadow-lg"
-          >
-            Learn More
-          </a>
-          <a
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault()
-              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-            }}
-            className="border-2 border-white text-white font-semibold px-6 py-3 rounded-full hover:bg-white/10 transition-colors"
-          >
-            Contact Me
-          </a>
-        </motion.div>
-      </div>
-
-      {/* Spline 3D feature */}
-      <motion.div
-        className="container mx-auto px-4 sm:px-6 w-full max-w-5xl relative z-10 mt-4"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.0 }}
-      >
-        <SplineSceneBasic />
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity }}
-      >
-        <ChevronDown className="w-6 h-6" />
-      </motion.div>
-    </section>
-  )
-}
-
 /* ─── Profile Section ────────────────────── */
 
 const educationItems = [
@@ -297,6 +188,73 @@ const profileImages = [
   },
 ]
 
+const featureQuickFacts = [
+  { icon: '🎓', label: 'IIT Delhi Ph.D.' },
+  { icon: '🏫', label: 'UPES Faculty' },
+  { icon: '📚', label: '3+ Publications' },
+  { icon: '🌏', label: 'Int\'l Researcher' },
+]
+
+function ProfileFeatureCard() {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 32 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7 }}
+      className="w-full mb-12 rounded-2xl overflow-hidden shadow-xl"
+      style={{
+        background: 'linear-gradient(135deg, #4b1d1d 0%, #1e293b 60%, #0f172a 100%)',
+      }}
+    >
+      <div className="flex flex-col sm:flex-row items-center gap-6 p-6 sm:p-8">
+        {/* Avatar */}
+        <div className="relative flex-shrink-0">
+          <div className="absolute inset-[-6px] rounded-full bg-gradient-to-tr from-maroon-500 to-gold-500/60 opacity-70 blur-sm" />
+          <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-maroon-400 shadow-lg">
+            <img
+              src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/Avatar.png"
+              alt="Rajat Goyal"
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                ;(e.target as HTMLImageElement).src =
+                  'https://placehold.co/100x100/8a3d3d/fff?text=RG'
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Text */}
+        <div className="flex-1 text-center sm:text-left">
+          <p className="text-xs font-semibold tracking-widest uppercase text-maroon-300 mb-1">
+            Operations &amp; Supply Chain
+          </p>
+          <h3 className="text-xl font-bold text-white mb-1">Rajat Goyal</h3>
+          <p className="text-slate-300 text-sm italic leading-relaxed max-w-lg">
+            "Bridging operations science and public governance through data-driven innovation —
+            building systems that serve billions."
+          </p>
+        </div>
+
+        {/* Quick-fact chips */}
+        <div className="flex sm:flex-col gap-2 flex-wrap justify-center">
+          {featureQuickFacts.map((f) => (
+            <span
+              key={f.label}
+              className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-slate-200 whitespace-nowrap"
+            >
+              <span>{f.icon}</span>
+              {f.label}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
 function ProfileSection() {
   return (
     <section id="profile" className="py-16 bg-slate-50">
@@ -304,6 +262,9 @@ function ProfileSection() {
         <FadeIn>
           <SectionHeading>Profile Summary</SectionHeading>
         </FadeIn>
+
+        {/* Feature bento card */}
+        <ProfileFeatureCard />
 
         <div className="flex flex-col lg:flex-row items-start gap-12">
           {/* Left – bio + education */}
@@ -950,7 +911,7 @@ export default function App() {
     <div className="bg-slate-50 text-slate-800 font-sans">
       <Header />
       <main>
-        <HeroSection />
+        <HeroDemo />
         <ProfileSection />
         <ResearchSection />
         <TeachingSection />
