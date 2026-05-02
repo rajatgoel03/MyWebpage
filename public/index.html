@@ -3,476 +3,694 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rajat Goyal - Profile</title>
-    <!-- Link to the generated stylesheet -->
+    <title>Rajat Goyal — Operations & Research</title>
     <link href="style.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- Favicon -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,400&display=swap" rel="stylesheet">
     <link rel="icon" href="/Images/favicon.svg" type="image/svg+xml">
     <style>
-        /* Custom style for the modern background effect */
-        .hero-bg {
-            background-color: #4b1d1d; /* maroon-950 */
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23a84747' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-2-26V0h-2v8h-4v2h4v4h2v-4h4V8h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        /* ===== DESIGN TOKENS ===== */
+        :root {
+            --c-maroon-950: #4b1d1d;
+            --c-maroon-900: #6b2020;
+            --c-maroon-800: #8b2727;
+            --c-maroon-700: #a84747;
+            --c-maroon-100: #fbe7e7;
+            --c-maroon-50:  #fdf2f2;
+            --c-gold-500:   #ca8a04;
+            --c-gold-400:   #e8a827;
         }
-        .text-shadow {
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+
+        body { background: #fafaf9; overflow-x: hidden; }
+
+        /* ===== HERO ===== */
+        .hero-mesh {
+            background-color: var(--c-maroon-950);
+            background-image:
+                radial-gradient(ellipse at 15% 60%, rgba(168,71,71,.45) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 20%, rgba(107,32,32,.65) 0%, transparent 50%),
+                radial-gradient(ellipse at 55% 85%, rgba(75,29,29,.8)   0%, transparent 55%);
         }
-        .text-shadow-sm {
-            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        .hero-orb {
+            position: absolute; border-radius: 50%;
+            filter: blur(70px); opacity: .25; pointer-events: none;
         }
-        /* Style for the header on scroll */
-        .header-scrolled {
-            background-color: rgba(75, 29, 29, 0.9);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .hero-orb-1 { width:480px;height:480px; background:radial-gradient(circle,#a84747,transparent); top:-120px;left:-120px; }
+        .hero-orb-2 { width:320px;height:320px; background:radial-gradient(circle,#ca8a04,transparent); bottom:-60px;right:8%; }
+        .hero-orb-3 { width:220px;height:220px; background:radial-gradient(circle,#8b2727,transparent); top:35%;right:4%; }
+
+        /* Spinning conic gradient ring */
+        .avatar-ring {
+            position:relative;
+            display:inline-block;
         }
-        .nav-link.active {
-            border-bottom-color: white;
+        .avatar-ring::before {
+            content:'';
+            position:absolute; inset:-5px;
+            border-radius:50%;
+            background: conic-gradient(from 0deg, #a84747, #ca8a04, #fbe7e7, #a84747, #ca8a04);
+            z-index:-1;
+            animation: spin-ring 8s linear infinite;
         }
-         /* Prevent scroll when mobile menu is open */
-        .no-scroll {
-            overflow: hidden;
+        @keyframes spin-ring { to { transform:rotate(360deg); } }
+
+        /* Scroll indicator */
+        .scroll-bar {
+            width:1px; height:44px;
+            background:linear-gradient(to bottom,rgba(255,255,255,.7),transparent);
+            animation: scroll-pulse 2.2s ease-in-out infinite;
         }
-        /* Subtle background pattern for sections */
-        .section-bg {
-             background-color: #f8fafc; /* slate-50 */
+        @keyframes scroll-pulse {
+            0%,100%{ transform:scaleY(1); opacity:.7; }
+            50%{ transform:scaleY(.45); opacity:.3; }
         }
-        .section-bg-alt {
-            background-color: #ffffff;
+
+        /* ===== NAV ===== */
+        #main-header { transition: background .4s ease, box-shadow .4s ease; }
+        #main-header.scrolled {
+            background: rgba(75,29,29,.88);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow: 0 4px 28px rgba(0,0,0,.18);
         }
+        .nav-pill {
+            position:relative; padding-bottom:2px;
+        }
+        .nav-pill::after {
+            content:''; position:absolute; bottom:-3px; left:50%;
+            transform:translateX(-50%) scaleX(0);
+            width:100%; height:2px;
+            background:linear-gradient(90deg,#a84747,#ca8a04);
+            border-radius:2px; transition:transform .3s ease;
+        }
+        .nav-pill:hover::after, .nav-pill.active::after { transform:translateX(-50%) scaleX(1); }
+
+        /* ===== SECTION ALTERNATING BG ===== */
+        .sec-light  { background:#fafaf9; }
+        .sec-white  { background:#ffffff; }
+
+        /* ===== SECTION HEADING ===== */
+        .h-accent {
+            position:relative; display:inline-block; padding-bottom:18px;
+        }
+        .h-accent::after {
+            content:''; position:absolute; bottom:0; left:50%;
+            transform:translateX(-50%);
+            width:52px; height:4px;
+            background:linear-gradient(90deg,#a84747,#ca8a04);
+            border-radius:4px;
+        }
+
+        /* ===== CARD ===== */
+        .card {
+            background:#fff; border-radius:16px;
+            border:1px solid rgba(168,71,71,.08);
+            box-shadow:0 2px 14px rgba(0,0,0,.06);
+            transition:transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s ease, border-color .3s ease;
+        }
+        .card:hover {
+            transform:translateY(-5px);
+            box-shadow:0 12px 36px rgba(168,71,71,.13), 0 3px 10px rgba(0,0,0,.08);
+            border-color:rgba(168,71,71,.28);
+        }
+
+        /* Publication card with left accent */
+        .pub-card {
+            background:#fff; border-radius:12px;
+            border-left:4px solid var(--c-maroon-700);
+            box-shadow:0 2px 14px rgba(0,0,0,.06);
+            transition:transform .3s ease, box-shadow .3s ease;
+        }
+        .pub-card:hover {
+            transform:translateY(-4px);
+            box-shadow:0 10px 32px rgba(168,71,71,.16);
+        }
+
+        /* ===== TIMELINE ===== */
+        .tl-track {
+            position:absolute; left:0; top:0; bottom:0;
+            width:3px; background:linear-gradient(to bottom,#a84747,#fbe7e7);
+            border-radius:3px;
+        }
+        .tl-dot {
+            position:absolute; left:-6px;
+            width:15px; height:15px; border-radius:50%;
+            background:var(--c-maroon-700);
+            border:3px solid #fff;
+            box-shadow:0 0 0 3px rgba(168,71,71,.22);
+        }
+
+        /* ===== RESEARCH TAGS ===== */
+        .r-tag {
+            display:inline-flex; align-items:center;
+            padding:7px 18px; border-radius:100px;
+            font-size:.875rem; font-weight:500;
+            background:linear-gradient(135deg,#fbe7e7,#fff0f0);
+            color:#8b2727;
+            border:1px solid rgba(168,71,71,.15);
+            transition:all .22s ease; cursor:default;
+        }
+        .r-tag:hover {
+            background:linear-gradient(135deg,#a84747,#8b2727);
+            color:#fff; border-color:transparent;
+            transform:translateY(-2px);
+            box-shadow:0 5px 18px rgba(168,71,71,.32);
+        }
+
+        /* ===== PROFILE IMAGES ===== */
+        .img-tile { overflow:hidden; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,.10); }
+        .img-tile img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+        .img-tile:hover img { transform:scale(1.08); }
+
+        /* ===== RESEARCHER PROFILE LINKS ===== */
+        .rp-link {
+            display:inline-flex; align-items:center; gap:9px;
+            padding:10px 20px; border-radius:100px;
+            background:#fff; border:1.5px solid rgba(168,71,71,.15);
+            color:#334155; font-size:.875rem; font-weight:500;
+            text-decoration:none;
+            box-shadow:0 2px 8px rgba(0,0,0,.04);
+            transition:all .25s ease;
+        }
+        .rp-link:hover {
+            border-color:#a84747; background:#fdf2f2; color:#8b2727;
+            box-shadow:0 4px 18px rgba(168,71,71,.16);
+            transform:translateY(-2px);
+        }
+
+        /* ===== BLOG CARDS ===== */
+        .blog-card {
+            background:#fff; border-radius:16px; overflow:hidden;
+            box-shadow:0 2px 14px rgba(0,0,0,.06);
+            border:1px solid transparent;
+            transition:transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s ease, border-color .3s ease;
+        }
+        .blog-card:hover {
+            transform:translateY(-7px);
+            box-shadow:0 18px 44px rgba(168,71,71,.16);
+            border-color:rgba(168,71,71,.2);
+        }
+        .blog-img-wrap { overflow:hidden; position:relative; }
+        .blog-img-wrap img { display:block; width:100%; transition:transform .5s ease; }
+        .blog-card:hover .blog-img-wrap img { transform:scale(1.08); }
+        .blog-tag {
+            position:absolute; top:12px; left:12px;
+            padding:4px 12px; border-radius:100px;
+            background:rgba(75,29,29,.85); color:#fff;
+            font-size:.72rem; font-weight:600;
+            backdrop-filter:blur(4px);
+        }
+
+        /* ===== CONTACT ===== */
+        .contact-card {
+            background:#fff; border-radius:24px;
+            box-shadow:0 10px 44px rgba(168,71,71,.1), 0 2px 10px rgba(0,0,0,.06);
+            border:1px solid rgba(168,71,71,.08);
+        }
+        .email-link {
+            color:#a84747; font-weight:500; cursor:pointer;
+            text-decoration:none;
+            border-bottom:1px solid transparent;
+            transition:all .2s ease;
+        }
+        .email-link:hover { color:#6b2020; border-bottom-color:#a84747; }
+
+        /* ===== MOBILE MENU ===== */
+        #mobile-menu { background:rgba(75,29,29,.97); backdrop-filter:blur(22px); }
+
+        /* ===== UTIL ===== */
+        .no-scroll { overflow:hidden; }
+
+        /* Teaching / cert inner cards */
+        .inner-card {
+            background:#f8fafc; padding:1rem; border-radius:12px;
+            border:1px solid #e2e8f0;
+            transition:border-color .25s ease, background .25s ease;
+        }
+        .inner-card:hover { border-color:rgba(168,71,71,.3); background:#fdf2f2; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans">
+<body class="text-slate-800 font-sans">
 
-    <!-- Header & Navigation -->
-    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <!-- ===== NAVIGATION ===== -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50">
         <nav class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-white">Rajat Goyal</a>
-            <div class="hidden md:flex space-x-8">
-                <a href="#home" class="nav-link text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Home</a>
-                <a href="#profile" class="nav-link text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Profile</a>
-                <a href="#research" class="nav-link text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Research</a>
-                <a href="#teaching" class="nav-link text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Teaching</a>
-                <a href="#certifications" class="nav-link text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Certifications</a>
-                <a href="#blog" class="nav-link text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Blog</a>
-                <a href="#contact" class="nav-link text-slate-200 hover:text-white border-b-2 border-transparent hover:border-white transition duration-300">Contact</a>
+            <a href="#" class="text-xl font-bold text-white tracking-tight">Rajat Goyal</a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#home"           class="nav-pill nav-link text-slate-200 hover:text-white text-sm font-medium transition-colors">Home</a>
+                <a href="#profile"        class="nav-pill nav-link text-slate-200 hover:text-white text-sm font-medium transition-colors">Profile</a>
+                <a href="#research"       class="nav-pill nav-link text-slate-200 hover:text-white text-sm font-medium transition-colors">Research</a>
+                <a href="#teaching"       class="nav-pill nav-link text-slate-200 hover:text-white text-sm font-medium transition-colors">Teaching</a>
+                <a href="#certifications" class="nav-pill nav-link text-slate-200 hover:text-white text-sm font-medium transition-colors">Certifications</a>
+                <a href="#blog"           class="nav-pill nav-link text-slate-200 hover:text-white text-sm font-medium transition-colors">Blog</a>
+                <a href="#contact"        class="nav-pill nav-link text-slate-200 hover:text-white text-sm font-medium transition-colors px-4 py-1.5 rounded-full border border-white/30 hover:border-white/70 hover:bg-white/10">Contact</a>
             </div>
-            <button id="mobile-menu-button" class="md:hidden flex items-center text-white z-50">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            <button id="mobile-menu-button" class="md:hidden flex items-center justify-center w-10 h-10 text-white z-50 rounded-full hover:bg-white/10 transition-colors">
+                <svg id="icon-open"  class="w-5 h-5"        fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <svg id="icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
         </nav>
     </header>
-    
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="hidden fixed inset-0 bg-maroon-900/95 z-40 flex flex-col items-center justify-center space-y-6 text-2xl">
-        <a href="#home" class="mobile-link text-slate-200 hover:text-white">Home</a>
-        <a href="#profile" class="mobile-link text-slate-200 hover:text-white">Profile</a>
-        <a href="#research" class="mobile-link text-slate-200 hover:text-white">Research</a>
-        <a href="#teaching" class="mobile-link text-slate-200 hover:text-white">Teaching</a>
-        <a href="#certifications" class="mobile-link text-slate-200 hover:text-white">Certifications</a>
-        <a href="#blog" class="mobile-link text-slate-200 hover:text-white">Blog</a>
-        <a href="#contact" class="mobile-link text-slate-200 hover:text-white">Contact</a>
+
+    <!-- ===== MOBILE MENU ===== -->
+    <div id="mobile-menu" class="hidden fixed inset-0 z-40 flex flex-col items-center justify-center space-y-8">
+        <a href="#home"           class="text-2xl font-medium text-white hover:text-maroon-300 transition-colors">Home</a>
+        <a href="#profile"        class="text-2xl font-medium text-white hover:text-maroon-300 transition-colors">Profile</a>
+        <a href="#research"       class="text-2xl font-medium text-white hover:text-maroon-300 transition-colors">Research</a>
+        <a href="#teaching"       class="text-2xl font-medium text-white hover:text-maroon-300 transition-colors">Teaching</a>
+        <a href="#certifications" class="text-2xl font-medium text-white hover:text-maroon-300 transition-colors">Certifications</a>
+        <a href="#blog"           class="text-2xl font-medium text-white hover:text-maroon-300 transition-colors">Blog</a>
+        <a href="#contact"        class="text-2xl font-medium text-white hover:text-maroon-300 transition-colors">Contact</a>
     </div>
 
-    <!-- Main Content -->
     <main>
-        <!-- Home Section -->
-        <section id="home" class="hero-bg text-white min-h-screen flex items-center relative">
-            <div class="absolute inset-0 bg-black opacity-20"></div>
-            <div class="container mx-auto px-4 sm:px-6 text-center relative z-10">
-                <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/Avatar.png" alt="Rajat Goyal" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-white shadow-lg ring-4 ring-maroon-500/50" onerror="this.onerror=null;this.src='https://placehold.co/150x150/FFFFFF/333333?text=RG';" data-aos="zoom-in">
-                <h1 class="text-4xl sm:text-5xl font-bold mb-2 text-shadow" data-aos="fade-down" data-aos-delay="200">Rajat Goyal</h1>
-                <p class="text-lg sm:text-xl text-slate-100 mb-8 text-shadow-sm" data-aos="fade-up" data-aos-delay="400">Assistant Professor (Operations) at UPES Dehradun</p>
-                <p class="max-w-3xl mx-auto text-slate-200 text-shadow-sm" data-aos="fade-up" data-aos-delay="600">
-                    Passionate about leveraging data-driven insights and advanced modeling to optimize public systems and solve complex administrative challenges. My research focuses on public administration, creating innovative decision support systems to enhance governance and efficiency, operations management, and supply chain management.
+        <!-- ===== HERO ===== -->
+        <section id="home" class="hero-mesh text-white min-h-screen flex items-center relative overflow-hidden">
+            <div class="hero-orb hero-orb-1" id="orb1"></div>
+            <div class="hero-orb hero-orb-2" id="orb2"></div>
+            <div class="hero-orb hero-orb-3" id="orb3"></div>
+            <!-- Subtle grid overlay -->
+            <div class="absolute inset-0 opacity-[.03]" style="background-image:url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Crect width=\'40\' height=\'40\' fill=\'none\' stroke=\'%23fff\' stroke-width=\'0.5\'/%3E%3C/svg%3E');"></div>
+
+            <div class="container mx-auto px-4 sm:px-6 text-center relative z-10 py-32">
+                <div class="avatar-ring w-36 h-36 mx-auto mb-8" id="hero-avatar" style="opacity:0">
+                    <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/Avatar.png" alt="Rajat Goyal"
+                         class="w-36 h-36 rounded-full object-cover border-4 border-white shadow-2xl"
+                         onerror="this.onerror=null;this.src='https://placehold.co/150x150/FFFFFF/703535?text=RG';">
+                </div>
+                <h1 id="hero-name" class="text-5xl sm:text-6xl lg:text-7xl font-bold mb-4 tracking-tight" style="opacity:0;text-shadow:0 2px 24px rgba(0,0,0,.3)">
+                    Rajat Goyal
+                </h1>
+                <p id="hero-title" class="text-lg sm:text-xl text-maroon-200 mb-4 font-medium" style="opacity:0">
+                    Assistant Professor (Operations) · UPES Dehradun
                 </p>
-            </div>
-        </section>
-
-        <!-- Profile Section -->
-        <section id="profile" class="py-12 section-bg">
-            <div class="container mx-auto px-4 sm:px-6">
-                 <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="inline-block text-3xl sm:text-4xl font-bold text-slate-800 relative pb-4">
-                        Profile Summary
-                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-maroon-600 to-gold-400 rounded-full"></span>
-                    </h2>
-                </div>
-                <div class="flex flex-col lg:flex-row items-start gap-12">
-                    <div class="lg:w-3/5" data-aos="fade-right" data-aos-delay="200">
-                        <h3 class="text-2xl font-semibold text-slate-700 mb-4">About Me</h3>
-                        <p class="mb-4 text-slate-600">
-                            I am an Assistant Professor in Operations at UPES Dehradun with a deep interest in Operations Management and Operations Research. My doctoral research at IIT Delhi focused on developing a Decision Support System (DSS) to strengthen district administration in India. This work involved creating data-driven tools to improve efficiency in meeting management, compliance tracking, and law and order.
-                        </p>
-                        <p class="text-slate-600">
-                            My goal is to contribute to impactful governance reforms that align with the national vision of Viksit Bharat 2047 through technological innovation and robust policy support.
-                        </p>
-                        <h3 class="text-2xl font-semibold text-slate-700 mt-8 mb-6">Education</h3>
-                        <div class="relative border-l-4 border-maroon-200">
-                            <!-- Timeline Item 1: PhD -->
-                            <div class="mb-10 ml-6 transition duration-300 ease-in-out hover:scale-105">
-                                <span class="absolute flex items-center justify-center w-8 h-8 bg-maroon-100 rounded-full -left-4 ring-8 ring-white">
-                                    <svg class="w-4 h-4 text-maroon-700" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path d="M12 4.218c-2.352.91-4.644 2.21-6.824 3.772.532 2.946 1.83 5.432 3.422 7.275a11.95 11.95 0 003.402 2.748.5.5 0 00.402 0 11.95 11.95 0 003.402-2.748c1.592-1.843 2.89-4.329 3.422-7.275C16.644 6.428 14.352 5.128 12 4.218z"></path></svg>
-                                </span>
-                                <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm ml-4 transition-colors duration-300 hover:border-maroon-700">
-                                    <div class="flex items-center justify-between mb-1">
-                                         <h4 class="font-bold text-slate-800 text-lg">Doctor of Philosophy (Ph.D.)</h4>
-                                         <time class="text-sm font-normal text-slate-500">2019 - 2025</time>
-                                    </div>
-                                    <p class="text-slate-600">Industrial Engineering - Indian Institute of Technology Delhi</p>
-                                </div>
-                            </div>
-
-                            <!-- Timeline Item 2: M.Tech -->
-                             <div class="mb-10 ml-6 transition duration-300 ease-in-out hover:scale-105">
-                                <span class="absolute flex items-center justify-center w-8 h-8 bg-maroon-100 rounded-full -left-4 ring-8 ring-white">
-                                     <svg class="w-4 h-4 text-maroon-700" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path d="M12 4.218c-2.352.91-4.644 2.21-6.824 3.772.532 2.946 1.83 5.432 3.422 7.275a11.95 11.95 0 003.402 2.748.5.5 0 00.402 0 11.95 11.95 0 003.402-2.748c1.592-1.843 2.89-4.329 3.422-7.275C16.644 6.428 14.352 5.128 12 4.218z"></path></svg>
-                                </span>
-                                <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm ml-4 transition-colors duration-300 hover:border-maroon-700">
-                                    <div class="flex items-center justify-between mb-1">
-                                         <h4 class="font-bold text-slate-800 text-lg">Master of Technology (M.Tech)</h4>
-                                         <time class="text-sm font-normal text-slate-500">2017 - 2019</time>
-                                    </div>
-                                    <p class="text-slate-600">Industrial and Production Engineering - National Institute of Technology, Kurukshetra</p>
-                                </div>
-                            </div>
-
-                            <!-- Timeline Item 3: B.Tech -->
-                             <div class="ml-6 transition duration-300 ease-in-out hover:scale-105">
-                                <span class="absolute flex items-center justify-center w-8 h-8 bg-maroon-100 rounded-full -left-4 ring-8 ring-white">
-                                     <svg class="w-4 h-4 text-maroon-700" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path d="M12 4.218c-2.352.91-4.644 2.21-6.824 3.772.532 2.946 1.83 5.432 3.422 7.275a11.95 11.95 0 003.402 2.748.5.5 0 00.402 0 11.95 11.95 0 003.402-2.748c1.592-1.843 2.89-4.329 3.422-7.275C16.644 6.428 14.352 5.128 12 4.218z"></path></svg>
-                                </span>
-                                <div class="p-4 bg-white rounded-lg border border-slate-200 shadow-sm ml-4 transition-colors duration-300 hover:border-maroon-700">
-                                    <div class="flex items-center justify-between mb-1">
-                                         <h4 class="font-bold text-slate-800 text-lg">Bachelor of Technology (B.Tech)</h4>
-                                         <time class="text-sm font-normal text-slate-500">2012 - 2016</time>
-                                    </div>
-                                    <p class="text-slate-600">Mechanical Engineering - Maharishi Markandeshwar Engineering College, MMDU Mullana</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="lg:w-2/5 w-full" data-aos="fade-left" data-aos-delay="400">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="grid gap-4">
-                                <div class="overflow-hidden rounded-lg shadow-lg">
-                                    <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/upes.jpg" alt="UPES Image" class="h-auto max-w-full object-cover transition-transform duration-300 ease-in-out hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/400x400/E2E8F0/4A5568?text=Image+Not+Found';">
-                                </div>
-                                <div class="overflow-hidden rounded-lg shadow-lg">
-                                   <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/iima.jpg" alt="IIM Ahmedabad Image" class="h-auto max-w-full object-cover transition-transform duration-300 ease-in-out hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/400x400/E2E8F0/4A5568?text=Image+Not+Found';">
-                                </div>
-                                <div class="overflow-hidden rounded-lg shadow-lg">
-                                   <img src="/Images/logos/With Gurus.jpg" alt="With Gurus" class="h-auto max-w-full object-cover transition-transform duration-300 ease-in-out hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/400x400/E2E8F0/4A5568?text=Image+Not+Found';">
-                                </div>
-                            </div>
-                            <div class="grid gap-4 mt-8">
-                                <div class="overflow-hidden rounded-lg shadow-lg">
-                                   <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/iitd.jpg" alt="IIT Delhi Image" class="h-auto max-w-full object-cover transition-transform duration-300 ease-in-out hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/400x400/E2E8F0/4A5568?text=Image+Not+Found';">
-                                </div>
-                                <div class="overflow-hidden rounded-lg shadow-lg">
-                                    <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/Class%2019-23.jpg" alt="Class of 19-23 Image" class="h-auto max-w-full object-cover transition-transform duration-300 ease-in-out hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/400x400/E2E8F0/4A5568?text=Image+Not+Found';">
-                                </div>
-                                <div class="overflow-hidden rounded-lg shadow-lg">
-                                   <img src="/Images/logos/SCM class.jpg" alt="SCM Class" class="h-auto max-w-full object-cover transition-transform duration-300 ease-in-out hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/400x400/E2E8F0/4A5568?text=Image+Not+Found';">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Research Section -->
-        <section id="research" class="py-12 section-bg-alt">
-            <div class="container mx-auto px-4 sm:px-6">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="inline-block text-3xl sm:text-4xl font-bold text-slate-800 relative pb-4">
-                        Research
-                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-maroon-600 to-gold-400 rounded-full"></span>
-                    </h2>
-                </div>
-                <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="text-2xl font-semibold text-slate-700 mb-4">Areas of Interest</h3>
-                    <div class="flex flex-wrap gap-4 mb-8">
-                        <span class="bg-maroon-100 text-maroon-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Operations Management</span>
-                        <span class="bg-maroon-100 text-maroon-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Operations Research</span>
-                        <span class="bg-maroon-100 text-maroon-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Supply Chain Management</span>
-                        <span class="bg-maroon-100 text-maroon-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full">Public System Modelling</span>
-                    </div>
-                    
-                    <h3 class="text-2xl font-semibold text-slate-700 mb-4 mt-8">Researcher Profiles</h3>
-                     <div class="flex items-center gap-8">
-                        <!-- Google Scholar -->
-                        <a href="https://scholar.google.com/citations?user=qa3dVBQAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" title="Google Scholar" class="transition-transform duration-300 ease-in-out hover:scale-110">
-                            <img src="/Images/logos/google_scholar_icon_130918.png" alt="Google Scholar Logo" class="h-8 object-contain">
-                        </a>
-                        <!-- ResearchGate -->
-                        <a href="https://www.researchgate.net/profile/Rajat-Goyal-12" target="_blank" rel="noopener noreferrer" title="ResearchGate" class="transition-transform duration-300 ease-in-out hover:scale-110">
-                            <img src="/Images/logos/ResearchGate_icon_SVG.svg.png" alt="ResearchGate Logo" class="h-8 object-contain">
-                        </a>
-                        <!-- Web of Science -->
-                        <a href="https://www.webofscience.com/wos/author/record/HHC-4898-2022" target="_blank" rel="noopener noreferrer" title="Web of Science" class="transition-transform duration-300 ease-in-out hover:scale-110">
-                            <img src="/Images/logos/wos.png" alt="Web of Science Logo" class="h-8 object-contain">
-                        </a>
-                        <!-- ORCID -->
-                        <a href="https://orcid.org/0000-0002-5470-9029" target="_blank" rel="noopener noreferrer" title="ORCID" class="transition-transform duration-300 ease-in-out hover:scale-110">
-                           <img src="/Images/logos/ORCID_iD.svg.png" alt="ORCID Logo" class="h-8 object-contain">
-                        </a>
-                    </div>
-
-
-                    <h3 class="text-2xl font-semibold text-slate-700 mb-4 mt-12">Publications</h3>
-                    <div class="space-y-6 mb-8">
-                        <div class="p-6 bg-slate-50 rounded-lg shadow-md transition duration-300 hover:shadow-lg hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                            <h4 class="font-bold text-lg text-slate-800">
-                                <a href="https://doi.org/10.1016/j.seps.2026.102461" target="_blank" rel="noopener noreferrer" class="text-maroon-700 hover:underline">
-                                    Navigating barriers to GenAI adoption in public administration: A systematic evaluation and policy roadmap
-                                </a>
-                            </h4>
-                            <p class="text-slate-600">Goyal, R., Deshmukh, S. G., & Bolia, N. (2026).</p>
-                            <p class="italic text-slate-500">Socio-Economic Planning Sciences, Volume 105, 102461. ISSN 0038-0121.</p>
-                        </div>
-                        <div class="p-6 bg-slate-50 rounded-lg shadow-md transition duration-300 hover:shadow-lg hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                            <h4 class="font-bold text-lg text-slate-800">
-                                <a href="https://doi.org/10.1108/JAMR-01-2025-0040" target="_blank" rel="noopener noreferrer" class="text-maroon-700 hover:underline">
-                                    Impact of decision support systems on public administration: A systematic literature review and future research agenda
-                                </a>
-                            </h4>
-                            <p class="text-slate-600">Goyal, R., Deshmukh, S. G., & Bolia, N. (2025).</p>
-                            <p class="italic text-slate-500">Journal of Advances in Management Research. Emerald Publishing.</p>
-                        </div>
-                        <div class="p-6 bg-slate-50 rounded-lg shadow-md transition duration-300 hover:shadow-lg hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                            <h4 class="font-bold text-lg text-slate-800">
-                                <a href="https://doi.org/10.1177/00195561251406778" target="_blank" rel="noopener noreferrer" class="text-maroon-700 hover:underline">
-                                    Decision Support System for Strengthening District Administration in India: A Study of the Current Situation and Future Prospects
-                                </a>
-                            </h4>
-                            <p class="text-slate-600">Goyal, R., Deshmukh, S. G., & Bolia, N. (2025).</p>
-                            <p class="italic text-slate-500">Indian Journal of Public Administration (Published)</p>
-                        </div>
-                    </div>
-                    
-                    <h3 class="text-2xl font-semibold text-slate-700 mb-4">Conference Presentations</h3>
-                     <div class="space-y-6">
-                        <div class="p-6 bg-slate-50 rounded-lg shadow-md transition duration-300 hover:shadow-lg hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                            <h4 class="font-bold text-lg text-slate-800">
-                                <a href="https://doi.org/10.46254/SA6.20250112" target="_blank" rel="noopener noreferrer" class="text-maroon-700 hover:underline">
-                                    A Structured Framework for Decision Support System Implementation: A Case of Digital Transformation for District Administration in India
-                                </a>
-                            </h4>
-                            <p class="text-slate-600">Goyal, R., Deshmukh, S., & Bolia, N. (2025, May)</p>
-                            <p class="italic text-slate-500">6th South American Conference on Industrial Engineering and Operations Management</p>
-                        </div>
-                        <div class="p-6 bg-slate-50 rounded-lg shadow-md transition duration-300 hover:shadow-lg hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                            <h4 class="font-bold text-lg text-slate-800">Decision support system for District Magistrate</h4>
-                            <p class="text-slate-600">Goyal, R., Deshmukh, S. G., & Bolia, N. (July 2024)</p>
-                            <p class="italic text-slate-500">EURO 24, DTU Copenhagen, Denmark</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Teaching Section -->
-        <section id="teaching" class="py-12 section-bg">
-            <div class="container mx-auto px-4 sm:px-6">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="inline-block text-3xl sm:text-4xl font-bold text-slate-800 relative pb-4">
-                        Teaching
-                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-maroon-600 to-gold-400 rounded-full"></span>
-                    </h2>
-                </div>
-                <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-                    <p class="text-center text-lg text-slate-600 mb-8">I am passionate about mentoring students and fostering a deep understanding of operations and supply chain principles. Below is a summary of my teaching experience.</p>
-                    
-                    <div class="bg-white p-8 rounded-lg shadow-xl mb-8">
-                        <h3 class="text-2xl font-semibold text-slate-700 mb-6 border-b pb-4">Courses Taught at UPES Dehradun</h3>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                                <h4 class="font-bold text-slate-800">Operations Management</h4>
-                                <p class="text-slate-600">MBA (Semester 1) & BBA (Semester 2)</p>
-                            </div>
-                             <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                                <h4 class="font-bold text-slate-800">Business Optimization</h4>
-                                <p class="text-slate-600">MBA (Semester 3)</p>
-                            </div>
-                            <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                                <h4 class="font-bold text-slate-800">Service Operation Management</h4>
-                                <p class="text-slate-600">BBA (Semester 4)</p>
-                            </div>
-                            <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                                <h4 class="font-bold text-slate-800">Operations Management (International)</h4>
-                                <p class="text-slate-600">MBA Batch, Guyana</p>
-                            </div>
-                            <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                                <h4 class="font-bold text-slate-800">Project Management</h4>
-                                <p class="text-slate-600">BBA (Semester 4)</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-8 rounded-lg shadow-xl">
-                        <h3 class="text-2xl font-semibold text-slate-700 mb-6 border-b pb-4">Teaching Assistantship at IIT Delhi</h3>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                                <h4 class="font-bold text-slate-800">Supply Chain Management (MCL756)</h4>
-                                <p class="text-slate-600">Assisted in course delivery, case studies, grading, and student mentorship (2022-2024).</p>
-                            </div>
-                             <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                                <h4 class="font-bold text-slate-800">Operations Research (MCL765)</h4>
-                                <p class="text-slate-600">Assisted in course delivery, grading, and student support (2021-2022).</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Certifications and FDPs Section -->
-        <section id="certifications" class="py-12 section-bg-alt">
-            <div class="container mx-auto px-4 sm:px-6">
-                 <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="inline-block text-3xl sm:text-4xl font-bold text-slate-800 relative pb-4">
-                        Certifications & FDPs
-                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-maroon-600 to-gold-400 rounded-full"></span>
-                    </h2>
-                </div>
-                <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-                    
-                    <div class="space-y-8">
-                        <!-- Global Certifications -->
-                        <div class="bg-white p-6 rounded-lg shadow-xl">
-                             <h3 class="text-2xl font-semibold text-slate-700 mb-6 border-b pb-4">Global Certifications</h3>
-                             <div class="grid md:grid-cols-2 gap-6">
-                                <div class="bg-slate-50 p-4 rounded-lg flex items-start space-x-4 transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                                    <span class="text-maroon-700 mt-1">&#10003;</span>
-                                    <div>
-                                        <h4 class="font-bold text-slate-800">Data-Driven Supply Chain Transformation (2024)</h4>
-                                        <p class="text-sm text-slate-600">Global online certification by IIM Mumbai (PM Gati Shakti Scheme) with Prof. David Simchi-Levi (MIT).</p>
-                                    </div>
-                                </div>
-                                <div class="bg-slate-50 p-4 rounded-lg flex items-start space-x-4 transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                                    <span class="text-maroon-700 mt-1">&#10003;</span>
-                                    <div>
-                                        <h4 class="font-bold text-slate-800">Reinventing Business Operations with Data Analytics (2023)</h4>
-                                        <p class="text-sm text-slate-600">Global certification by IIM Mumbai (PM Gati Shakti Scheme) with Prof. David Simchi-Levi (MIT).</p>
-                                    </div>
-                                </div>
-                             </div>
-                        </div>
-
-                        <!-- Workshops and Symposiums -->
-                        <div class="bg-white p-6 rounded-lg shadow-xl">
-                            <h3 class="text-2xl font-semibold text-slate-700 mb-6 border-b pb-4">Workshops & FDPs</h3>
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                                    <h4 class="font-bold text-slate-800">Nurturing Future Leadership Programme (NFLP)</h4>
-                                    <p class="text-sm text-slate-600">Five-Day Residential Programme hosted by IIM Bodh Gaya, supported by the Ministry of Education under the Malaviya Mission (Jan 19-23, 2026).</p>
-                                </div>
-                                <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                                    <h4 class="font-bold text-slate-800"> Workshop on Advanced Teaching and Research Methods for Transportation and Logistics</h4>
-                                    <p class="text-sm text-slate-600"> Month-long Online FDP by Centre for Transportation and Logistics, IIM Ahmedabad (Sep 2025)</p>
-                                </div>
-                               <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                                    <h4 class="font-bold text-slate-800">AI for Teaching and Learning</h4>
-                                    <p class="text-sm text-slate-600">Two-week FDP by E&ICT Academy, IIT Guwahati (Aug 2025).</p>
-                                </div>
-                               <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                                   <h4 class="font-bold text-slate-800">IndoML 2022</h4>
-                                   <p class="text-sm text-slate-600">3rd Indian Symposium on Machine Learning at IIT Gandhinagar (Dec 2022).</p>
-                               </div>
-                               <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                                   <h4 class="font-bold text-slate-800">FDP Chair Professor Workshop</h4>
-                                   <p class="text-sm text-slate-600">2-day faculty development program at IIT Delhi (July 2022).</p>
-                               </div>
-                               <div class="bg-slate-50 p-4 rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700">
-                                   <h4 class="font-bold text-slate-800">Large-Scale Optimization</h4>
-                                   <p class="text-sm text-slate-600">Summer School at IIM Ahmedabad (May 2022).</p>
-                               </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Blog Section -->
-        <section id="blog" class="py-12 section-bg">
-            <div class="container mx-auto px-4 sm:px-6">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="inline-block text-3xl sm:text-4xl font-bold text-slate-800 relative pb-4">
-                        Blog
-                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-maroon-600 to-gold-400 rounded-full"></span>
-                    </h2>
-                </div>
-                <p class="text-center text-lg text-slate-600 mb-8 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">Thoughts and articles on Operations Management, Supply Chain Management, Public Policy, and the intersection of technology and governance.</p>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Blog Post 1 -->
-                    <div class="bg-slate-50 rounded-lg shadow-md overflow-hidden flex flex-col group transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700" data-aos="fade-up" data-aos-delay="300">
-                        <div class="overflow-hidden">
-                            <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/public/articles/Future%20of%20supplchain.jpg" alt="Future of Supply Chain Image" class="w-full h-40 object-cover transition-transform duration-300 ease-in-out group-hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/600x400/A3BFFA/FFFFFF?text=Image+Not+Found';">
-                        </div>
-                        <div class="p-4 flex flex-col flex-grow">
-                            <h3 class="font-bold text-lg text-slate-800 mb-2">The Future of Supply Chains</h3>
-                            <p class="text-sm text-slate-600 mb-3 flex-grow">A look at the emerging trends shaping the future of global supply chains in response to geopolitical and technological shifts.</p>
-                            <a href="articles/article-1.html" target="_blank" class="text-sm text-maroon-700 hover:underline hover:font-bold mt-auto">Read More &rarr;</a>
-                        </div>
-                    </div>
-                    <!-- Blog Post 2 -->
-                    <div class="bg-slate-50 rounded-lg shadow-md overflow-hidden flex flex-col group transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700" data-aos="fade-up" data-aos-delay="400">
-                        <div class="overflow-hidden">
-                            <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/public/articles/scm.jpg" alt="Supply Chain Management Image" class="w-full h-40 object-cover transition-transform duration-300 ease-in-out group-hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/600x400/f8dada/703535?text=Image+Not+Found';">
-                        </div>
-                        <div class="p-4 flex flex-col flex-grow">
-                            <h3 class="font-bold text-lg text-slate-800 mb-2">Why Supply Chain Management has Drawn Attention Post-Covid</h3>
-                            <p class="text-sm text-slate-600 mb-3 flex-grow">At the outset of Covid-19, when trade and travel were restricted due to lockdowns, demand spiked sharply for some goods while dropping dramatically for others...</p>
-                            <a href="articles/article-2.html" target="_blank" class="text-sm text-maroon-700 hover:underline hover:font-bold mt-auto">Read More &rarr;</a>
-                        </div>
-                    </div>
-                    <!-- Blog Post 3 -->
-                    <div class="bg-slate-50 rounded-lg shadow-md overflow-hidden flex flex-col group transition duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-transparent hover:border-maroon-700" data-aos="fade-up" data-aos-delay="500">
-                        <div class="overflow-hidden">
-                             <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/public/articles/it.jpg" alt="IT in Supply Chain" class="w-full h-40 object-cover transition-transform duration-300 ease-in-out group-hover:scale-110" onerror="this.onerror=null;this.src='https://placehold.co/600x400/f8dada/703535?text=Image+Not+Found';">
-                        </div>
-                        <div class="p-4 flex flex-col flex-grow">
-                            <h3 class="font-bold text-lg text-slate-800 mb-2">Role of IT in Mitigating the Bullwhip Effect</h3>
-                            <p class="text-sm text-slate-600 mb-3 flex-grow">When distorted information is transmitted up the supply chain, the cost from fluctuations can outweigh the cost of holding inventory, resulting in a major revenue drain...</p>
-                            <a href="articles/article-3.html" target="_blank" class="text-sm text-maroon-700 hover:underline hover:font-bold mt-auto">Read More &rarr;</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-12 section-bg">
-            <div class="container mx-auto px-4 sm:px-6">
-                <div class="text-center mb-12" data-aos="fade-up">
-                    <h2 class="inline-block text-3xl sm:text-4xl font-bold text-slate-800 relative pb-4">
+                <div id="hero-divider" class="w-14 h-1 mx-auto mb-6 rounded-full" style="background:linear-gradient(90deg,#a84747,#ca8a04);opacity:0"></div>
+                <p id="hero-bio" class="max-w-2xl mx-auto text-slate-200 text-base sm:text-lg leading-relaxed" style="opacity:0">
+                    Passionate about leveraging data-driven insights and advanced modeling to optimize public systems. Research focused on public administration, decision support systems, operations management, and supply chain.
+                </p>
+                <div id="hero-ctas" class="flex flex-wrap justify-center gap-4 mt-8" style="opacity:0">
+                    <a href="#research" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-maroon-800 font-semibold rounded-full shadow-lg hover:bg-maroon-50 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                        View Research
+                    </a>
+                    <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 bg-transparent text-white font-semibold rounded-full border-2 border-white/40 hover:border-white hover:bg-white/10 transition-all duration-300 hover:-translate-y-0.5">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                         Get In Touch
-                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-maroon-600 to-gold-400 rounded-full"></span>
-                    </h2>
+                    </a>
                 </div>
-                <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-xl text-center" data-aos="fade-up" data-aos-delay="200">
-                    <p class="text-lg mb-2 text-slate-700">Rajat Goyal</p>
-                    <p class="text-slate-600 mb-4">Assistant Professor (Operations), UPES Dehradun</p>
-                    <div class="text-lg text-slate-800 space-y-2">
-                        <div>
-                            <span class="font-semibold">Official:</span>
-                            <a id="email-link-official" class="text-maroon-700 hover:underline hover:font-bold cursor-pointer">rajat.goyal [at] ddn [dot]upes[dot]ac[dot]in</a>
+            </div>
+            <!-- Scroll indicator -->
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 text-xs tracking-widest uppercase">
+                <span>Scroll</span>
+                <div class="scroll-bar"></div>
+            </div>
+        </section>
+
+        <!-- ===== PROFILE ===== -->
+        <section id="profile" class="py-20 sec-light">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-16 motion-el" data-dir="up">
+                    <h2 class="h-accent text-3xl sm:text-4xl font-bold text-slate-800">Profile Summary</h2>
+                </div>
+                <div class="flex flex-col lg:flex-row items-start gap-16">
+
+                    <!-- Left -->
+                    <div class="lg:w-3/5 space-y-10">
+                        <!-- About -->
+                        <div class="card p-8 motion-el" data-dir="right">
+                            <div class="flex items-center gap-3 mb-5">
+                                <div class="w-10 h-10 rounded-xl bg-maroon-100 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-5 h-5 text-maroon-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                                </div>
+                                <h3 class="text-xl font-semibold text-slate-700">About Me</h3>
+                            </div>
+                            <p class="text-slate-600 leading-relaxed mb-4">
+                                I am an Assistant Professor in Operations at UPES Dehradun with a deep interest in Operations Management and Operations Research. My doctoral research at IIT Delhi focused on developing a Decision Support System (DSS) to strengthen district administration in India. This work involved creating data-driven tools to improve efficiency in meeting management, compliance tracking, and law and order.
+                            </p>
+                            <p class="text-slate-600 leading-relaxed">
+                                My goal is to contribute to impactful governance reforms that align with the national vision of Viksit Bharat 2047 through technological innovation and robust policy support.
+                            </p>
                         </div>
-                        <div>
-                            <span class="font-semibold">Personal:</span>
-                            <a id="email-link-personal" class="text-maroon-700 hover:underline hover:font-bold cursor-pointer">rajatiitd [at] gmail [dot] com</a>
+
+                        <!-- Education timeline -->
+                        <div class="motion-el" data-dir="right" data-delay="0.12">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="w-10 h-10 rounded-xl bg-maroon-100 flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-5 h-5 text-maroon-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+                                </div>
+                                <h3 class="text-xl font-semibold text-slate-700">Education</h3>
+                            </div>
+                            <div class="relative pl-8">
+                                <div class="tl-track"></div>
+                                <!-- PhD -->
+                                <div class="relative mb-7 motion-el" data-dir="up" data-delay="0.1">
+                                    <div class="tl-dot" style="top:20px"></div>
+                                    <div class="card p-5">
+                                        <div class="flex items-start justify-between gap-2 mb-1">
+                                            <h4 class="font-bold text-slate-800">Doctor of Philosophy (Ph.D.)</h4>
+                                            <span class="text-xs font-medium text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full whitespace-nowrap">2019–2025</span>
+                                        </div>
+                                        <p class="text-slate-500 text-sm">Industrial Engineering</p>
+                                        <p class="text-maroon-700 text-sm font-medium mt-0.5">Indian Institute of Technology Delhi</p>
+                                    </div>
+                                </div>
+                                <!-- M.Tech -->
+                                <div class="relative mb-7 motion-el" data-dir="up" data-delay="0.2">
+                                    <div class="tl-dot" style="top:20px"></div>
+                                    <div class="card p-5">
+                                        <div class="flex items-start justify-between gap-2 mb-1">
+                                            <h4 class="font-bold text-slate-800">Master of Technology (M.Tech)</h4>
+                                            <span class="text-xs font-medium text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full whitespace-nowrap">2017–2019</span>
+                                        </div>
+                                        <p class="text-slate-500 text-sm">Industrial and Production Engineering</p>
+                                        <p class="text-maroon-700 text-sm font-medium mt-0.5">National Institute of Technology, Kurukshetra</p>
+                                    </div>
+                                </div>
+                                <!-- B.Tech -->
+                                <div class="relative motion-el" data-dir="up" data-delay="0.3">
+                                    <div class="tl-dot" style="top:20px"></div>
+                                    <div class="card p-5">
+                                        <div class="flex items-start justify-between gap-2 mb-1">
+                                            <h4 class="font-bold text-slate-800">Bachelor of Technology (B.Tech)</h4>
+                                            <span class="text-xs font-medium text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full whitespace-nowrap">2012–2016</span>
+                                        </div>
+                                        <p class="text-slate-500 text-sm">Mechanical Engineering</p>
+                                        <p class="text-maroon-700 text-sm font-medium mt-0.5">MM Engineering College, MMDU Mullana</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex justify-center mt-6">
-                        <a href="https://www.linkedin.com/in/rajatiitd" target="_blank" rel="noopener noreferrer" class="text-[#0a66c2] transition-opacity duration-300 hover:opacity-80">
-                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 15.5h-2v-7h2v7zm-3-8.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm7 8.5h-2v-4.25c0-.9-.67-1.58-1.5-1.58-.82 0-1.5.68-1.5 1.58V18.5h-2v-7h2v1.03c.3-.58.98-1.03 1.7-1.03 1.28 0 2.3 1.02 2.3 2.25V18.5z"/></svg>
+
+                    <!-- Right: photo grid -->
+                    <div class="lg:w-2/5 w-full motion-el" data-dir="left" data-delay="0.18">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="grid gap-3">
+                                <div class="img-tile h-40"><img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/upes.jpg"        alt="UPES"        onerror="this.onerror=null;this.src='https://placehold.co/400x320/E2E8F0/4A5568?text=UPES';"></div>
+                                <div class="img-tile h-40"><img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/iima.jpg"        alt="IIM Ahmedabad" onerror="this.onerror=null;this.src='https://placehold.co/400x320/E2E8F0/4A5568?text=IIMA';"></div>
+                                <div class="img-tile h-40"><img src="/Images/logos/With Gurus.jpg"                                                  alt="With Gurus"   onerror="this.onerror=null;this.src='https://placehold.co/400x320/E2E8F0/4A5568?text=With+Gurus';"></div>
+                            </div>
+                            <div class="grid gap-3 mt-6">
+                                <div class="img-tile h-40"><img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/iitd.jpg"        alt="IIT Delhi"    onerror="this.onerror=null;this.src='https://placehold.co/400x320/E2E8F0/4A5568?text=IIT+Delhi';"></div>
+                                <div class="img-tile h-40"><img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/Class%2019-23.jpg" alt="Class 19-23" onerror="this.onerror=null;this.src='https://placehold.co/400x320/E2E8F0/4A5568?text=Class';"></div>
+                                <div class="img-tile h-40"><img src="/Images/logos/SCM class.jpg"                                                   alt="SCM Class"    onerror="this.onerror=null;this.src='https://placehold.co/400x320/E2E8F0/4A5568?text=SCM+Class';"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== RESEARCH ===== -->
+        <section id="research" class="py-20 sec-white">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-16 motion-el" data-dir="up">
+                    <h2 class="h-accent text-3xl sm:text-4xl font-bold text-slate-800">Research</h2>
+                </div>
+                <div class="max-w-4xl mx-auto space-y-12">
+
+                    <!-- Areas of interest -->
+                    <div class="motion-el" data-dir="up">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-10 h-10 rounded-xl bg-maroon-100 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-maroon-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-700">Areas of Interest</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-3" id="research-tags">
+                            <span class="r-tag">Operations Management</span>
+                            <span class="r-tag">Operations Research</span>
+                            <span class="r-tag">Supply Chain Management</span>
+                            <span class="r-tag">Public System Modelling</span>
+                        </div>
+                    </div>
+
+                    <!-- Researcher profiles -->
+                    <div class="motion-el" data-dir="up" data-delay="0.08">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-10 h-10 rounded-xl bg-maroon-100 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-maroon-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-700">Researcher Profiles</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="https://scholar.google.com/citations?user=qa3dVBQAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" class="rp-link">
+                                <img src="/Images/logos/google_scholar_icon_130918.png" alt="Google Scholar" class="h-5 object-contain"> Google Scholar
+                            </a>
+                            <a href="https://www.researchgate.net/profile/Rajat-Goyal-12" target="_blank" rel="noopener noreferrer" class="rp-link">
+                                <img src="/Images/logos/ResearchGate_icon_SVG.svg.png" alt="ResearchGate" class="h-5 object-contain"> ResearchGate
+                            </a>
+                            <a href="https://www.webofscience.com/wos/author/record/HHC-4898-2022" target="_blank" rel="noopener noreferrer" class="rp-link">
+                                <img src="/Images/logos/wos.png" alt="Web of Science" class="h-5 object-contain"> Web of Science
+                            </a>
+                            <a href="https://orcid.org/0000-0002-5470-9029" target="_blank" rel="noopener noreferrer" class="rp-link">
+                                <img src="/Images/logos/ORCID_iD.svg.png" alt="ORCID" class="h-5 object-contain"> ORCID
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Publications -->
+                    <div>
+                        <div class="flex items-center gap-3 mb-6 motion-el" data-dir="up">
+                            <div class="w-10 h-10 rounded-xl bg-maroon-100 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-maroon-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-700">Publications</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="pub-card p-6 motion-el" data-dir="up" data-delay="0.1">
+                                <span class="inline-block text-xs font-semibold text-maroon-700 bg-maroon-50 px-3 py-1 rounded-full mb-3">Journal Article · 2026</span>
+                                <h4 class="font-bold text-slate-800 mb-2">
+                                    <a href="https://doi.org/10.1016/j.seps.2026.102461" target="_blank" rel="noopener noreferrer" class="hover:text-maroon-700 transition-colors">
+                                        Navigating barriers to GenAI adoption in public administration: A systematic evaluation and policy roadmap
+                                    </a>
+                                </h4>
+                                <p class="text-slate-600 text-sm mb-1">Goyal, R., Deshmukh, S. G., & Bolia, N. (2026).</p>
+                                <p class="italic text-slate-400 text-sm">Socio-Economic Planning Sciences, Volume 105, 102461. ISSN 0038-0121.</p>
+                            </div>
+                            <div class="pub-card p-6 motion-el" data-dir="up" data-delay="0.2">
+                                <span class="inline-block text-xs font-semibold text-maroon-700 bg-maroon-50 px-3 py-1 rounded-full mb-3">Journal Article · 2025</span>
+                                <h4 class="font-bold text-slate-800 mb-2">
+                                    <a href="https://doi.org/10.1108/JAMR-01-2025-0040" target="_blank" rel="noopener noreferrer" class="hover:text-maroon-700 transition-colors">
+                                        Impact of decision support systems on public administration: A systematic literature review and future research agenda
+                                    </a>
+                                </h4>
+                                <p class="text-slate-600 text-sm mb-1">Goyal, R., Deshmukh, S. G., & Bolia, N. (2025).</p>
+                                <p class="italic text-slate-400 text-sm">Journal of Advances in Management Research. Emerald Publishing.</p>
+                            </div>
+                            <div class="pub-card p-6 motion-el" data-dir="up" data-delay="0.3">
+                                <span class="inline-block text-xs font-semibold text-maroon-700 bg-maroon-50 px-3 py-1 rounded-full mb-3">Journal Article · 2025</span>
+                                <h4 class="font-bold text-slate-800 mb-2">
+                                    <a href="https://doi.org/10.1177/00195561251406778" target="_blank" rel="noopener noreferrer" class="hover:text-maroon-700 transition-colors">
+                                        Decision Support System for Strengthening District Administration in India: A Study of the Current Situation and Future Prospects
+                                    </a>
+                                </h4>
+                                <p class="text-slate-600 text-sm mb-1">Goyal, R., Deshmukh, S. G., & Bolia, N. (2025).</p>
+                                <p class="italic text-slate-400 text-sm">Indian Journal of Public Administration (Published)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conference Presentations -->
+                    <div>
+                        <div class="flex items-center gap-3 mb-6 motion-el" data-dir="up">
+                            <div class="w-10 h-10 rounded-xl bg-maroon-100 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-maroon-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-700">Conference Presentations</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="pub-card p-6 motion-el" data-dir="up" data-delay="0.1">
+                                <span class="inline-block text-xs font-semibold text-maroon-700 bg-maroon-50 px-3 py-1 rounded-full mb-3">Conference · 2025</span>
+                                <h4 class="font-bold text-slate-800 mb-2">
+                                    <a href="https://doi.org/10.46254/SA6.20250112" target="_blank" rel="noopener noreferrer" class="hover:text-maroon-700 transition-colors">
+                                        A Structured Framework for Decision Support System Implementation: A Case of Digital Transformation for District Administration in India
+                                    </a>
+                                </h4>
+                                <p class="text-slate-600 text-sm mb-1">Goyal, R., Deshmukh, S., & Bolia, N. (2025, May)</p>
+                                <p class="italic text-slate-400 text-sm">6th South American Conference on Industrial Engineering and Operations Management</p>
+                            </div>
+                            <div class="pub-card p-6 motion-el" data-dir="up" data-delay="0.2">
+                                <span class="inline-block text-xs font-semibold text-maroon-700 bg-maroon-50 px-3 py-1 rounded-full mb-3">Conference · 2024</span>
+                                <h4 class="font-bold text-slate-800 mb-2">Decision support system for District Magistrate</h4>
+                                <p class="text-slate-600 text-sm mb-1">Goyal, R., Deshmukh, S. G., & Bolia, N. (July 2024)</p>
+                                <p class="italic text-slate-400 text-sm">EURO 24, DTU Copenhagen, Denmark</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== TEACHING ===== -->
+        <section id="teaching" class="py-20 sec-light">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-16 motion-el" data-dir="up">
+                    <h2 class="h-accent text-3xl sm:text-4xl font-bold text-slate-800">Teaching</h2>
+                    <p class="text-slate-500 mt-6 text-lg max-w-xl mx-auto">Passionate about mentoring students and fostering a deep understanding of operations and supply chain principles.</p>
+                </div>
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <!-- UPES -->
+                    <div class="card p-8 motion-el" data-dir="up">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 rounded-xl bg-maroon-100 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-maroon-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-700">Courses Taught at UPES Dehradun</h3>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="inner-card"><h4 class="font-semibold text-slate-800">Operations Management</h4><p class="text-sm text-slate-500 mt-1">MBA (Semester 1) & BBA (Semester 2)</p></div>
+                            <div class="inner-card"><h4 class="font-semibold text-slate-800">Business Optimization</h4><p class="text-sm text-slate-500 mt-1">MBA (Semester 3)</p></div>
+                            <div class="inner-card"><h4 class="font-semibold text-slate-800">Service Operation Management</h4><p class="text-sm text-slate-500 mt-1">BBA (Semester 4)</p></div>
+                            <div class="inner-card"><h4 class="font-semibold text-slate-800">Operations Management (International)</h4><p class="text-sm text-slate-500 mt-1">MBA Batch, Guyana</p></div>
+                            <div class="inner-card md:col-span-2 lg:col-span-1"><h4 class="font-semibold text-slate-800">Project Management</h4><p class="text-sm text-slate-500 mt-1">BBA (Semester 4)</p></div>
+                        </div>
+                    </div>
+                    <!-- IIT Delhi TA -->
+                    <div class="card p-8 motion-el" data-dir="up" data-delay="0.12">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 rounded-xl bg-maroon-100 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-maroon-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-700">Teaching Assistantship at IIT Delhi</h3>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="inner-card"><h4 class="font-semibold text-slate-800">Supply Chain Management (MCL756)</h4><p class="text-sm text-slate-500 mt-1">Course delivery, case studies, grading, and student mentorship (2022–2024).</p></div>
+                            <div class="inner-card"><h4 class="font-semibold text-slate-800">Operations Research (MCL765)</h4><p class="text-sm text-slate-500 mt-1">Course delivery, grading, and student support (2021–2022).</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CERTIFICATIONS ===== -->
+        <section id="certifications" class="py-20 sec-white">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-16 motion-el" data-dir="up">
+                    <h2 class="h-accent text-3xl sm:text-4xl font-bold text-slate-800">Certifications & FDPs</h2>
+                </div>
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <!-- Global certs -->
+                    <div class="card p-8 motion-el" data-dir="up">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 rounded-xl bg-maroon-100 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-maroon-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-700">Global Certifications</h3>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="inner-card flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-maroon-100 flex items-center justify-center flex-shrink-0 mt-0.5"><svg class="w-3 h-3 text-maroon-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+                                <div><h4 class="font-semibold text-slate-800 text-sm">Data-Driven Supply Chain Transformation (2024)</h4><p class="text-xs text-slate-500 mt-1">Global online certification by IIM Mumbai (PM Gati Shakti Scheme) with Prof. David Simchi-Levi (MIT).</p></div>
+                            </div>
+                            <div class="inner-card flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-maroon-100 flex items-center justify-center flex-shrink-0 mt-0.5"><svg class="w-3 h-3 text-maroon-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+                                <div><h4 class="font-semibold text-slate-800 text-sm">Reinventing Business Operations with Data Analytics (2023)</h4><p class="text-xs text-slate-500 mt-1">Global certification by IIM Mumbai (PM Gati Shakti Scheme) with Prof. David Simchi-Levi (MIT).</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Workshops & FDPs -->
+                    <div class="card p-8 motion-el" data-dir="up" data-delay="0.1">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 rounded-xl bg-maroon-100 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-maroon-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-700">Workshops & FDPs</h3>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="inner-card"><h4 class="font-semibold text-slate-800 text-sm">Nurturing Future Leadership Programme (NFLP)</h4><p class="text-xs text-slate-500 mt-1">Five-Day Residential Programme hosted by IIM Bodh Gaya, supported by MoE under Malaviya Mission (Jan 19-23, 2026).</p></div>
+                            <div class="inner-card"><h4 class="font-semibold text-slate-800 text-sm">Workshop on Advanced Teaching and Research Methods for Transportation and Logistics</h4><p class="text-xs text-slate-500 mt-1">Month-long Online FDP by Centre for Transportation and Logistics, IIM Ahmedabad (Sep 2025).</p></div>
+                            <div class="inner-card"><h4 class="font-semibold text-slate-800 text-sm">AI for Teaching and Learning</h4><p class="text-xs text-slate-500 mt-1">Two-week FDP by E&amp;ICT Academy, IIT Guwahati (Aug 2025).</p></div>
+                            <div class="inner-card"><h4 class="font-semibold text-slate-800 text-sm">IndoML 2022</h4><p class="text-xs text-slate-500 mt-1">3rd Indian Symposium on Machine Learning at IIT Gandhinagar (Dec 2022).</p></div>
+                            <div class="inner-card"><h4 class="font-semibold text-slate-800 text-sm">FDP Chair Professor Workshop</h4><p class="text-xs text-slate-500 mt-1">2-day faculty development program at IIT Delhi (July 2022).</p></div>
+                            <div class="inner-card"><h4 class="font-semibold text-slate-800 text-sm">Large-Scale Optimization</h4><p class="text-xs text-slate-500 mt-1">Summer School at IIM Ahmedabad (May 2022).</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== BLOG ===== -->
+        <section id="blog" class="py-20 sec-light">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-16 motion-el" data-dir="up">
+                    <h2 class="h-accent text-3xl sm:text-4xl font-bold text-slate-800">Blog</h2>
+                    <p class="text-slate-500 mt-6 text-lg max-w-xl mx-auto">Thoughts on Operations Management, Supply Chain, Public Policy, and the intersection of technology and governance.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="blog-card motion-el" data-dir="up" data-delay="0.08">
+                        <div class="blog-img-wrap">
+                            <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/public/articles/Future%20of%20supplchain.jpg" alt="Future of Supply Chain" class="h-48 w-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fbe7e7/8b2727?text=Supply+Chain';">
+                            <span class="blog-tag">Supply Chain</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">The Future of Supply Chains</h3>
+                            <p class="text-sm text-slate-500 mb-4 leading-relaxed">A look at the emerging trends shaping the future of global supply chains in response to geopolitical and technological shifts.</p>
+                            <a href="articles/article-1.html" target="_blank" class="inline-flex items-center gap-1.5 text-sm font-semibold text-maroon-700 hover:text-maroon-900 transition-colors group">
+                                Read Article <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="blog-card motion-el" data-dir="up" data-delay="0.18">
+                        <div class="blog-img-wrap">
+                            <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/public/articles/scm.jpg" alt="Supply Chain Management" class="h-48 w-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fbe7e7/8b2727?text=Post-Covid';">
+                            <span class="blog-tag">Post-Covid</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Why Supply Chain Management has Drawn Attention Post-Covid</h3>
+                            <p class="text-sm text-slate-500 mb-4 leading-relaxed">At the outset of Covid-19, demand spiked sharply for some goods while dropping dramatically for others...</p>
+                            <a href="articles/article-2.html" target="_blank" class="inline-flex items-center gap-1.5 text-sm font-semibold text-maroon-700 hover:text-maroon-900 transition-colors group">
+                                Read Article <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="blog-card motion-el" data-dir="up" data-delay="0.28">
+                        <div class="blog-img-wrap">
+                            <img src="https://raw.githubusercontent.com/rajatgoel03/MyWebpage/main/public/articles/it.jpg" alt="IT in Supply Chain" class="h-48 w-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/fbe7e7/8b2727?text=Bullwhip';">
+                            <span class="blog-tag">IT &amp; Operations</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg text-slate-800 mb-2">Role of IT in Mitigating the Bullwhip Effect</h3>
+                            <p class="text-sm text-slate-500 mb-4 leading-relaxed">When distorted information is transmitted up the supply chain, the cost from fluctuations can outweigh the cost of holding inventory...</p>
+                            <a href="articles/article-3.html" target="_blank" class="inline-flex items-center gap-1.5 text-sm font-semibold text-maroon-700 hover:text-maroon-900 transition-colors group">
+                                Read Article <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CONTACT ===== -->
+        <section id="contact" class="py-20 sec-white">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-16 motion-el" data-dir="up">
+                    <h2 class="h-accent text-3xl sm:text-4xl font-bold text-slate-800">Get In Touch</h2>
+                </div>
+                <div class="max-w-md mx-auto contact-card p-10 text-center motion-el" data-dir="up" data-delay="0.1">
+                    <div class="w-16 h-16 rounded-2xl bg-maroon-100 flex items-center justify-center mx-auto mb-5">
+                        <svg class="w-8 h-8 text-maroon-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-1">Rajat Goyal</h3>
+                    <p class="text-slate-500 mb-6 text-sm">Assistant Professor (Operations), UPES Dehradun</p>
+                    <div class="space-y-3 mb-6 text-sm">
+                        <div class="flex items-center justify-center gap-2">
+                            <span class="text-slate-400 font-medium w-16 text-right">Official</span>
+                            <span class="text-slate-300">·</span>
+                            <a id="email-link-official" class="email-link">rajat.goyal [at] ddn.upes.ac.in</a>
+                        </div>
+                        <div class="flex items-center justify-center gap-2">
+                            <span class="text-slate-400 font-medium w-16 text-right">Personal</span>
+                            <span class="text-slate-300">·</span>
+                            <a id="email-link-personal" class="email-link">rajatiitd [at] gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="pt-5 border-t border-slate-100">
+                        <a href="https://www.linkedin.com/in/rajatiitd" target="_blank" rel="noopener noreferrer"
+                           class="inline-flex items-center gap-2 px-6 py-2.5 bg-[#0a66c2] text-white rounded-full font-medium text-sm hover:bg-[#004182] transition-colors shadow-md hover:shadow-lg">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            Connect on LinkedIn
                         </a>
                     </div>
                 </div>
@@ -480,31 +698,29 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-maroon-950 text-white">
-        <div class="container mx-auto px-6 py-8">
-            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-                <div class="mb-4 md:mb-0">
+    <!-- ===== FOOTER ===== -->
+    <footer style="background:linear-gradient(135deg,#4b1d1d 0%,#2d0d0d 100%)" class="text-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div>
                     <h3 class="text-lg font-bold">Rajat Goyal</h3>
-                    <p class="text-slate-400">Operations Management & Supply Chain Researcher</p>
+                    <p class="text-maroon-300 text-sm mt-1">Operations Management &amp; Supply Chain Researcher</p>
                 </div>
-                <div class="flex space-x-6">
-                    <a href="#profile" class="text-slate-300 hover:text-white transition duration-300">Profile</a>
-                    <a href="#research" class="text-slate-300 hover:text-white transition duration-300">Research</a>
-                    <a href="#blog" class="text-slate-300 hover:text-white transition duration-300">Blog</a>
-                    <a href="#contact" class="text-slate-300 hover:text-white transition duration-300">Contact</a>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <a href="#profile"        class="text-maroon-200 hover:text-white text-sm transition-colors">Profile</a>
+                    <a href="#research"       class="text-maroon-200 hover:text-white text-sm transition-colors">Research</a>
+                    <a href="#teaching"       class="text-maroon-200 hover:text-white text-sm transition-colors">Teaching</a>
+                    <a href="#blog"           class="text-maroon-200 hover:text-white text-sm transition-colors">Blog</a>
+                    <a href="#contact"        class="text-maroon-200 hover:text-white text-sm transition-colors">Contact</a>
                 </div>
             </div>
-            <div class="mt-8 border-t border-slate-700 pt-6 text-center text-slate-500">
+            <div class="mt-8 pt-6 border-t border-maroon-800 text-center text-maroon-400 text-sm">
                 <p>&copy; 2025 Rajat Goyal. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- AOS Animation Library -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- Link to the external JavaScript file -->
-    <script src="main.js"></script>
-
+    <!-- Motion animation library (vanilla/DOM) via ESM module -->
+    <script type="module" src="main.js"></script>
 </body>
 </html>
