@@ -1,5 +1,3 @@
-'use client'
-
 import { Suspense, lazy } from 'react'
 
 const Spline = lazy(() => import('@splinetool/react-spline'))
