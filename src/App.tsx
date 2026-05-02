@@ -192,7 +192,7 @@ const featureQuickFacts = [
   { icon: '🎓', label: 'IIT Delhi Ph.D.' },
   { icon: '🏫', label: 'UPES Faculty' },
   { icon: '📚', label: '3+ Publications' },
-  { icon: '🌏', label: 'Int\'l Researcher' },
+  { icon: '🌏', label: "Int'l Researcher" },
 ]
 
 function ProfileFeatureCard() {
